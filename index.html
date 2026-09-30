@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== SEO ===== -->
+  <title>Friandeasy – Distributeurs de snacks et boissons à Lyon</title>
+  <meta name="description" content="Friandeasy installe des distributeurs de snacks et boissons à Lyon : résidences étudiantes, salles de sport, coworkings, entreprises. Zéro coût, zéro gestion pour les lieux.">
+  <meta name="theme-color" content="#FF7A3D">
+  <!-- [À COMPLÉTER] remplacer https://www.friandeasy.fr par le vrai domaine partout -->
+  <link rel="canonical" href="https://www.friandeasy.fr/">
+
+  <!-- Open Graph / réseaux sociaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Friandeasy">
+  <meta property="og:title" content="Friandeasy – Une petite faim ? On est juste là.">
+  <meta property="og:description" content="Distributeurs de snacks et boissons à Lyon. Pour les usagers : du choix, 24h/24. Pour les lieux : zéro coût, zéro gestion.">
+  <meta property="og:url" content="https://www.friandeasy.fr/">
+  <meta property="og:image" content="https://www.friandeasy.fr/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Thème appliqué avant l'affichage (évite le flash blanc en mode sombre) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('fz-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Polices : 2 familles, graisses limitées -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Données structurées LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Friandeasy",
+    "description": "Distributeurs automatiques de snacks et boissons à Lyon.",
+    "url": "https://www.friandeasy.fr/",
+    "logo": "https://www.friandeasy.fr/assets/logo.svg",
+    "image": "https://www.friandeasy.fr/assets/og-image.png",
+    "email": "contact@friandeasy.fr",
+    "telephone": "+33000000000",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[À COMPLÉTER]",
+      "postalCode": "69000",
+      "addressLocality": "Lyon",
+      "addressCountry": "FR"
+    },
+    "areaServed": { "@type": "City", "name": "Lyon" },
+    "founder": [
+      { "@type": "Person", "name": "Evan" },
+      { "@type": "Person", "name": "Hippolyte" }
+    ],
+    "sameAs": ["https://www.instagram.com/friandeasy/"]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <!-- ===== Sprite SVG : pictos réutilisables (produits, icônes) ===== -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <!-- Produits -->
+    <symbol id="p-bag" viewBox="0 0 100 100"><path d="M26 18h48l-4 10 4 10v44l-6 6H32l-6-6V38l4-10z" fill="#fff"/><path d="M26 18h48l-4 10H30z" fill="currentColor" opacity=".35"/><circle cx="50" cy="58" r="13" fill="currentColor"/></symbol>
+    <symbol id="p-bar" viewBox="0 0 100 100"><rect x="14" y="36" width="72" height="28" rx="6" fill="#fff" transform="rotate(-12 50 50)"/><rect x="30" y="36" width="40" height="28" fill="currentColor" transform="rotate(-12 50 50)"/></symbol>
+    <symbol id="p-cookie" viewBox="0 0 100 100"><circle cx="50" cy="50" r="32" fill="#fff"/><circle cx="40" cy="40" r="5" fill="currentColor"/><circle cx="60" cy="46" r="4" fill="currentColor"/><circle cx="46" cy="62" r="5" fill="currentColor"/><circle cx="64" cy="62" r="3" fill="currentColor"/></symbol>
+    <symbol id="p-bottle" viewBox="0 0 100 100"><rect x="42" y="12" width="16" height="10" rx="3" fill="currentColor"/><path d="M40 22h20v10l6 10v42a6 6 0 0 1-6 6H40a6 6 0 0 1-6-6V42l6-10z" fill="#fff"/><rect x="34" y="52" width="32" height="18" fill="currentColor" opacity=".8"/></symbol>
+    <symbol id="p-can" viewBox="0 0 100 100"><rect x="32" y="16" width="36" height="68" rx="8" fill="#fff"/><rect x="32" y="36" width="36" height="28" fill="currentColor"/><rect x="40" y="16" width="20" height="4" rx="2" fill="currentColor" opacity=".5"/></symbol>
+    <symbol id="p-cup" viewBox="0 0 100 100"><path d="M30 26h40l-5 58H35z" fill="#fff"/><rect x="26" y="20" width="48" height="8" rx="4" fill="currentColor"/><rect x="54" y="8" width="5" height="16" rx="2" fill="currentColor" transform="rotate(15 56 16)"/><circle cx="50" cy="56" r="9" fill="currentColor"/></symbol>
+    <!-- Icônes UI -->
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 10h20" stroke="currentColor" stroke-width="2"/><path d="M6 15h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-nfc" viewBox="0 0 24 24"><path d="M8 7a7 7 0 0 1 0 10M12 4.5a11 11 0 0 1 0 15M16 2a15 15 0 0 1 0 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4.5" cy="12" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14.5 8.5a4 4 0 1 0 0 7M7.5 11h5M7.5 13.5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3h2.6l1.6 4.4-2.1 1.4a11 11 0 0 0 5.9 5.9l1.4-2.1 4.4 1.6v2.6A2.2 2.2 0 0 1 18.2 19 15.4 15.4 0 0 1 4.4 5.2 2.2 2.2 0 0 1 6.6 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.5" r="2.6" fill="currentColor"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <!-- ===================== HEADER / NAV ===================== -->
+  <header class="header" id="top">
+    <nav class="nav container" aria-label="Navigation principale">
+      <!-- LOGO : pour le remplacer, changer assets/favicon.svg (icône) ou remplacer tout le <a> par <img src="assets/logo-horizontal.svg" alt="Friandeasy"> -->
+      <a href="#top" class="logo" aria-label="Friandeasy – retour en haut">
+        <img src="assets/favicon.svg" alt="" width="40" height="40" class="logo__icon">
+        <span class="logo__word">Friand<span>easy</span></span>
+      </a>
+
+      <button class="nav__burger" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="#comment">Comment ça marche</a></li>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#emplacements">Où nous trouver</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#partenaire" class="btn btn--primary btn--sm">Accueillir un distributeur</a></li>
+      </ul>
+
+      <button class="theme-toggle" type="button" aria-label="Activer le mode sombre" aria-pressed="false">
+        <svg class="icon icon--moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        <svg class="icon icon--sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================== 1. HERO ===================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div class="hero__text reveal">
+          <span class="sticker sticker--yellow">Nouveau à Lyon 🧡</span>
+          <h1 id="hero-title">Une petite faim&nbsp;?<br><span class="grad-text">On est juste là.</span></h1>
+          <p class="hero__lead">Snacks, boissons fraîches et options healthy, dispo 24h/24 là où tu vis, bosses et grimpes. Tu choisis, tu paies, tu savoures.</p>
+          <div class="hero__cta">
+            <a href="#emplacements" class="btn btn--primary">Où nous trouver</a>
+            <a href="#partenaire" class="btn btn--ghost">Accueillir un distributeur</a>
+          </div>
+          <ul class="hero__badges" aria-label="Points forts">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Paiement CB &amp; sans contact</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Réassort régulier</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Made in Lyon</li>
+          </ul>
+        </div>
+
+        <!-- Illustration géométrique : distributeur (remplaçable par une image) -->
+        <div class="hero__art reveal" aria-hidden="true">
+          <div class="blob blob--1"></div>
+          <div class="blob blob--2"></div>
+          <svg class="machine" viewBox="0 0 320 440">
+            <defs>
+              <linearGradient id="g-machine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF4D6D"/></linearGradient>
+            </defs>
+            <rect x="10" y="10" width="300" height="420" rx="40" fill="url(#g-machine)"/>
+            <rect x="40" y="40" width="240" height="360" rx="24" fill="#fff"/>
+            <rect x="62" y="62" width="196" height="190" rx="14" fill="#FFE3D6"/>
+            <g class="machine__items">
+              <circle cx="102" cy="108" r="22" fill="#FF7A3D"/><circle cx="160" cy="108" r="22" fill="#FF4D6D"/><circle cx="218" cy="108" r="22" fill="#FFD23F"/>
+              <circle cx="102" cy="168" r="22" fill="#2EC4B6"/><circle cx="160" cy="168" r="22" fill="#FF7A3D"/><circle cx="218" cy="168" r="22" fill="#FF4D6D"/>
+              <rect x="80" y="210" width="44" height="26" rx="8" fill="#FF4D6D"/><rect x="138" y="210" width="44" height="26" rx="8" fill="#FFD23F"/><rect x="196" y="210" width="44" height="26" rx="8" fill="#2EC4B6"/>
+            </g>
+            <rect x="62" y="274" width="60" height="42" rx="8" fill="#FF7A3D"/>
+            <rect x="132" y="274" width="60" height="42" rx="8" fill="#FF7A3D"/>
+            <rect x="202" y="288" width="56" height="28" rx="8" fill="#2B2B33"/>
+            <rect x="62" y="342" width="196" height="30" rx="15" fill="#FFD9C7"/>
+          </svg>
+          <span class="sticker sticker--float sticker--pink s1">24h/24</span>
+          <span class="sticker sticker--float sticker--turq s2">Sans contact</span>
+          <span class="sticker sticker--float sticker--yellow s3">Healthy aussi&nbsp;!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2. COMMENT ÇA MARCHE ===================== -->
+    <section class="section" id="comment" aria-labelledby="comment-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Simple comme un snack</span>
+          <h2 id="comment-title">Comment ça marche&nbsp;?</h2>
+        </header>
+        <ol class="steps">
+          <li class="step card reveal">
+            <span class="step__num">1</span>
+            <h3>Choisis</h3>
+            <p>Repère ton produit, tape son numéro sur le clavier. Le prix s'affiche.</p>
+          </li>
+          <li class="step card reveal">
+            <span class="step__num">2</span>
+            <h3>Paie</h3>
+            <p>Carte, téléphone, montre… ou pièces selon la machine. En deux secondes.</p>
+          </li>
+          <li class="step card reveal">
+            <span class="step__num">3</span>
+            <h3>Savoure</h3>
+            <p>Récupère ton produit en bas. Voilà, c'est tout. Bon appétit&nbsp;!</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 3. PRODUITS ===================== -->
+    <section class="section section--tint" id="produits" aria-labelledby="produits-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Dans nos machines</span>
+          <h2 id="produits-title">De quoi craquer (ou pas)</h2>
+          <p>Un aperçu de notre sélection. Elle varie selon le lieu et la saison. Prix indicatifs.</p>
+        </header>
+
+        <div class="filters reveal" role="group" aria-label="Filtrer les produits">
+          <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">Tout</button>
+          <button type="button" class="chip" data-filter="snacks" aria-pressed="false">Snacks</button>
+          <button type="button" class="chip" data-filter="boissons" aria-pressed="false">Boissons</button>
+          <button type="button" class="chip" data-filter="healthy" aria-pressed="false">Healthy</button>
+          <button type="button" class="chip" data-filter="sucre" aria-pressed="false">Sucré</button>
+          <button type="button" class="chip" data-filter="sale" aria-pressed="false">Salé</button>
+        </div>
+
+        <!--
+          PRODUITS : une <li> = une carte.
+          - data-cat : catégories séparées par des espaces (snacks, boissons, healthy, sucre, sale)
+          - Image : remplacer le <div class="product__img"> par
+            <img class="product__img" src="assets/produits/xxx.webp" alt="Nom du produit" loading="lazy" width="400" height="300">
+          - Prix : [À COMPLÉTER] avec vos vrais tarifs
+        -->
+        <ul class="products" aria-live="polite">
+          <li class="product card" data-cat="snacks sale">
+            <div class="product__img" style="--c1:#FFD23F;--c2:#FF7A3D;color:#FF7A3D"><svg role="img" aria-label="Paquet de chips"><use href="#p-bag"/></svg></div>
+            <div class="product__body"><h3>Chips nature</h3><span class="price">1,50&nbsp;€</span></div>
+            <span class="tag">Salé</span>
+          </li>
+          <li class="product card" data-cat="snacks sale">
+            <div class="product__img" style="--c1:#FFE3D6;--c2:#FF4D6D;color:#FF4D6D"><svg role="img" aria-label="Paquet de bretzels"><use href="#p-bag"/></svg></div>
+            <div class="product__body"><h3>Bretzels</h3><span class="price">1,50&nbsp;€</span></div>
+            <span class="tag">Salé</span>
+          </li>
+          <li class="product card" data-cat="snacks sale healthy">
+            <div class="product__img" style="--c1:#B8F0EA;--c2:#2EC4B6;color:#1E8C82"><svg role="img" aria-label="Sachet de noix"><use href="#p-bag"/></svg></div>
+            <div class="product__body"><h3>Mix de noix</h3><span class="price">2,00&nbsp;€</span></div>
+            <span class="tag tag--healthy">Healthy</span>
+          </li>
+          <li class="product card" data-cat="snacks sucre">
+            <div class="product__img" style="--c1:#FFD9C7;--c2:#FF7A3D;color:#7A3B1B"><svg role="img" aria-label="Barre chocolatée"><use href="#p-bar"/></svg></div>
+            <div class="product__body"><h3>Barre chocolatée</h3><span class="price">1,50&nbsp;€</span></div>
+            <span class="tag">Sucré</span>
+          </li>
+          <li class="product card" data-cat="snacks sucre">
+            <div class="product__img" style="--c1:#FFF1B8;--c2:#FFD23F;color:#8A5A12"><svg role="img" aria-label="Cookie"><use href="#p-cookie"/></svg></div>
+            <div class="product__body"><h3>Cookie pépites</h3><span class="price">1,80&nbsp;€</span></div>
+            <span class="tag">Sucré</span>
+          </li>
+          <li class="product card" data-cat="snacks sucre">
+            <div class="product__img" style="--c1:#FFE3D6;--c2:#FFD23F;color:#FF7A3D"><svg role="img" aria-label="Gaufre"><use href="#p-bar"/></svg></div>
+            <div class="product__body"><h3>Gaufre au sucre</h3><span class="price">1,50&nbsp;€</span></div>
+            <span class="tag">Sucré</span>
+          </li>
+          <li class="product card" data-cat="snacks healthy">
+            <div class="product__img" style="--c1:#B8F0EA;--c2:#FFD23F;color:#1E8C82"><svg role="img" aria-label="Barre protéinée"><use href="#p-bar"/></svg></div>
+            <div class="product__body"><h3>Barre protéinée</h3><span class="price">2,50&nbsp;€</span></div>
+            <span class="tag tag--healthy">Healthy</span>
+          </li>
+          <li class="product card" data-cat="snacks healthy sucre">
+            <div class="product__img" style="--c1:#E4F7D8;--c2:#2EC4B6;color:#3F8A2E"><svg role="img" aria-label="Compote à boire"><use href="#p-cup"/></svg></div>
+            <div class="product__body"><h3>Compote à boire</h3><span class="price">1,50&nbsp;€</span></div>
+            <span class="tag tag--healthy">Healthy</span>
+          </li>
+          <li class="product card" data-cat="boissons healthy">
+            <div class="product__img" style="--c1:#D6F3FF;--c2:#2EC4B6;color:#1B7FB0"><svg role="img" aria-label="Bouteille d'eau"><use href="#p-bottle"/></svg></div>
+            <div class="product__body"><h3>Eau minérale 50&nbsp;cl</h3><span class="price">1,00&nbsp;€</span></div>
+            <span class="tag tag--healthy">Healthy</span>
+          </li>
+          <li class="product card" data-cat="boissons">
+            <div class="product__img" style="--c1:#D6F3FF;--c2:#B8F0EA;color:#2EC4B6"><svg role="img" aria-label="Eau pétillante"><use href="#p-bottle"/></svg></div>
+            <div class="product__body"><h3>Eau pétillante</h3><span class="price">1,20&nbsp;€</span></div>
+            <span class="tag">Boisson</span>
+          </li>
+          <li class="product card" data-cat="boissons sucre">
+            <div class="product__img" style="--c1:#FFD9C7;--c2:#FF4D6D;color:#C41E3A"><svg role="img" aria-label="Canette de soda"><use href="#p-can"/></svg></div>
+            <div class="product__body"><h3>Soda 33&nbsp;cl</h3><span class="price">1,80&nbsp;€</span></div>
+            <span class="tag">Boisson</span>
+          </li>
+          <li class="product card" data-cat="boissons sucre">
+            <div class="product__img" style="--c1:#FFF1B8;--c2:#FF7A3D;color:#C2560C"><svg role="img" aria-label="Thé glacé"><use href="#p-can"/></svg></div>
+            <div class="product__body"><h3>Thé glacé</h3><span class="price">1,80&nbsp;€</span></div>
+            <span class="tag">Boisson</span>
+          </li>
+          <li class="product card" data-cat="boissons">
+            <div class="product__img" style="--c1:#2B2B33;--c2:#FF4D6D;color:#FFD23F"><svg role="img" aria-label="Boisson énergisante"><use href="#p-can"/></svg></div>
+            <div class="product__body"><h3>Boisson énergisante</h3><span class="price">2,50&nbsp;€</span></div>
+            <span class="tag">Boisson</span>
+          </li>
+          <li class="product card" data-cat="boissons healthy">
+            <div class="product__img" style="--c1:#FFF1B8;--c2:#FF7A3D;color:#FF7A3D"><svg role="img" aria-label="Jus d'orange"><use href="#p-bottle"/></svg></div>
+            <div class="product__body"><h3>Jus d'orange</h3><span class="price">2,00&nbsp;€</span></div>
+            <span class="tag tag--healthy">Healthy</span>
+          </li>
+        </ul>
+        <p class="products__empty" hidden>Aucun produit dans cette catégorie pour l'instant.</p>
+        <p class="note reveal">Une envie qui manque&nbsp;? <a href="#contact">Propose-nous un produit</a>, on lit tout.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 4. OÙ NOUS TROUVER ===================== -->
+    <section class="section" id="emplacements" aria-labelledby="emplacements-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">À Lyon</span>
+          <h2 id="emplacements-title">Où nous trouver</h2>
+          <p>Nos machines actives, et celles qui arrivent bientôt.</p>
+        </header>
+        <div class="locations reveal">
+          <!-- Liste générée par script.js à partir du tableau LOCATIONS -->
+          <ul class="locations__list" id="locations-list"></ul>
+          <div class="locations__map card">
+            <div id="map" role="region" aria-label="Carte des distributeurs Friandeasy à Lyon">
+              <p class="map__fallback">Chargement de la carte…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5. PAIEMENT ===================== -->
+    <section class="section section--tint" id="paiement" aria-labelledby="paiement-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Zéro prise de tête</span>
+          <h2 id="paiement-title">Paie comme tu veux</h2>
+        </header>
+        <div class="pay">
+          <article class="pay__item card reveal">
+            <span class="pay__icon"><svg class="icon" aria-hidden="true"><use href="#i-card"/></svg></span>
+            <h3>Carte bancaire</h3>
+            <p>Visa, Mastercard, CB. Même pour 1&nbsp;€.</p>
+          </article>
+          <article class="pay__item card reveal">
+            <span class="pay__icon pay__icon--turq"><svg class="icon" aria-hidden="true"><use href="#i-nfc"/></svg></span>
+            <h3>Sans contact</h3>
+            <p>Carte, Apple Pay, Google Pay, montre. Tu poses, c'est payé.</p>
+          </article>
+          <article class="pay__item card reveal">
+            <span class="pay__icon pay__icon--yellow"><svg class="icon" aria-hidden="true"><use href="#i-coin"/></svg></span>
+            <h3>Espèces</h3>
+            <p>Pièces acceptées sur certaines machines. Regarde l'étiquette sur la carte ci-dessus.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6. DEVENIR PARTENAIRE ===================== -->
+    <section class="section section--dark" id="partenaire" aria-labelledby="partenaire-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="sticker sticker--yellow">Gérants, c'est pour vous</span>
+          <h2 id="partenaire-title">Un distributeur chez vous.<br><span class="grad-text">Zéro effort.</span></h2>
+          <p>Résidence étudiante, salle de sport ou d'escalade, coworking, entreprise&nbsp;: on s'occupe de tout, vos usagers en profitent.</p>
+        </header>
+
+        <div class="perks">
+          <article class="perk reveal"><span class="perk__big">0&nbsp;€</span><h3>Zéro coût</h3><p>Installation, machine, électricité du matériel&nbsp;: on prend en charge. Vous ne payez rien. <!-- [À COMPLÉTER] préciser les conditions (commission, électricité…) --></p></article>
+          <article class="perk reveal"><span class="perk__big">0&nbsp;h</span><h3>Zéro gestion</h3><p>Stock, pannes, monnaie, SAV&nbsp;: c'est notre job. Vous n'avez rien à faire.</p></article>
+          <article class="perk reveal"><span class="perk__big">↻</span><h3>Réassort régulier</h3><p>On passe souvent. La machine reste pleine, les dates sont surveillées.</p></article>
+          <article class="perk reveal"><span class="perk__big">+1</span><h3>Un vrai service</h3><p>Vos usagers ont de quoi manger et boire à toute heure. Un plus qu'ils remarquent.</p></article>
+        </div>
+
+        <div class="partner reveal">
+          <div class="partner__how">
+            <h3>Comment on démarre</h3>
+            <ol class="mini-steps">
+              <li><strong>On échange</strong> 15 min sur votre lieu et vos usagers.</li>
+              <li><strong>On visite</strong> pour choisir l'emplacement idéal.</li>
+              <li><strong>On installe</strong>, on remplit, c'est parti.</li>
+            </ol>
+            <p class="partner__small">Il faut juste une prise électrique et un peu de place (≈ 1&nbsp;m²).</p>
+          </div>
+
+          <!-- Formulaire partenaire. Branchement Formspree : voir FORM_ENDPOINTS dans script.js -->
+          <form class="form card" id="form-partner" data-form="partner" novalidate>
+            <h3>Parlons de votre lieu</h3>
+            <div class="form__row">
+              <div class="field">
+                <label for="p-name">Nom et prénom *</label>
+                <input id="p-name" name="nom" type="text" autocomplete="name" required>
+                <p class="field__error" id="p-name-err"></p>
+              </div>
+              <div class="field">
+                <label for="p-org">Nom du lieu / structure *</label>
+                <input id="p-org" name="structure" type="text" autocomplete="organization" required>
+                <p class="field__error" id="p-org-err"></p>
+              </div>
+            </div>
+            <div class="form__row">
+              <div class="field">
+                <label for="p-type">Type de lieu *</label>
+                <select id="p-type" name="type_lieu" required>
+                  <option value="">Choisir…</option>
+                  <option>Résidence étudiante</option>
+                  <option>Salle de sport / escalade</option>
+                  <option>Coworking</option>
+                  <option>Entreprise</option>
+                  <option>Autre</option>
+                </select>
+                <p class="field__error" id="p-type-err"></p>
+              </div>
+              <div class="field">
+                <label for="p-people">Passages / jour (environ)</label>
+                <select id="p-people" name="frequentation">
+                  <option value="">Je ne sais pas</option>
+                  <option>Moins de 50</option>
+                  <option>50 à 150</option>
+                  <option>150 à 300</option>
+                  <option>Plus de 300</option>
+                </select>
+              </div>
+            </div>
+            <div class="form__row">
+              <div class="field">
+                <label for="p-email">Email *</label>
+                <input id="p-email" name="email" type="email" autocomplete="email" required>
+                <p class="field__error" id="p-email-err"></p>
+              </div>
+              <div class="field">
+                <label for="p-tel">Téléphone</label>
+                <input id="p-tel" name="telephone" type="tel" autocomplete="tel" pattern="^[0-9+ .()-]{10,20}$">
+                <p class="field__error" id="p-tel-err"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="p-msg">Un mot sur votre lieu</label>
+              <textarea id="p-msg" name="message" rows="3" placeholder="Adresse, horaires, besoins particuliers…"></textarea>
+            </div>
+            <div class="field field--check">
+              <input id="p-consent" name="consentement" type="checkbox" required>
+              <label for="p-consent">J'accepte que Friandeasy utilise ces infos pour me recontacter. <a href="confidentialite.html">En savoir plus</a> *</label>
+              <p class="field__error" id="p-consent-err"></p>
+            </div>
+            <!-- Anti-spam (champ piège invisible) -->
+            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn--primary btn--block" type="submit">Je veux un distributeur</button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7. À PROPOS ===================== -->
+    <section class="section" id="apropos" aria-labelledby="apropos-title">
+      <div class="container about">
+        <div class="about__text reveal">
+          <span class="eyebrow">Notre histoire</span>
+          <h2 id="apropos-title">Deux Lyonnais, une fringale</h2>
+          <!-- [À COMPLÉTER] ajuster l'histoire réelle -->
+          <p>Tout est parti d'un constat simple&nbsp;: 22&nbsp;h, en révisions ou après une séance, et plus rien d'ouvert. Pas de quoi grignoter, pas même une bouteille d'eau.</p>
+          <p>Alors Evan et Hippolyte ont lancé Friandeasy. L'idée&nbsp;: des distributeurs bien remplis, des produits qu'on a vraiment envie de manger, et un service carré pour les lieux qui nous accueillent.</p>
+          <ul class="values">
+            <li><strong>Gourmand</strong> Du plaisir, mais aussi du healthy. Pour tous les goûts.</li>
+            <li><strong>Local</strong> Basés à Lyon. On connaît nos machines et nos partenaires.</li>
+            <li><strong>Réactif</strong> Un souci&nbsp;? On répond vite et on règle vite.</li>
+          </ul>
+        </div>
+        <div class="founders">
+          <!-- Photos fondateurs : remplacer .avatar par <img class="avatar" src="assets/evan.webp" alt="Evan, cofondateur" loading="lazy"> -->
+          <article class="founder card reveal">
+            <div class="avatar avatar--1" aria-hidden="true">E</div>
+            <h3>Evan</h3>
+            <p class="founder__role">Cofondateur</p>
+            <p>[À COMPLÉTER] Une phrase sur Evan, son rôle, son snack préféré.</p>
+          </article>
+          <article class="founder card reveal">
+            <div class="avatar avatar--2" aria-hidden="true">H</div>
+            <h3>Hippolyte</h3>
+            <p class="founder__role">Cofondateur</p>
+            <p>[À COMPLÉTER] Une phrase sur Hippolyte, son rôle, son snack préféré.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 8. FAQ ===================== -->
+    <section class="section section--tint" id="faq" aria-labelledby="faq-title">
+      <div class="container container--narrow">
+        <header class="section__head reveal">
+          <span class="eyebrow">On répond</span>
+          <h2 id="faq-title">Questions fréquentes</h2>
+        </header>
+        <div class="accordion reveal">
+          <div class="acc">
+            <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-1" id="faq-1-btn">J'ai payé mais rien n'est tombé. Comment être remboursé&nbsp;?</button></h3>
+            <div class="acc__panel" id="faq-1" role="region" aria-labelledby="faq-1-btn" hidden>
+              <p>Pas de panique. Envoie-nous via le <a href="#contact">formulaire</a> (type «&nbsp;Panne / remboursement&nbsp;»)&nbsp;: le lieu, le numéro de la machine, l'heure et le produit. Si tu as payé par carte, on te rembourse sous 48&nbsp;h ouvrées. <!-- [À COMPLÉTER] préciser la procédure réelle --></p>
+            </div>
+          </div>
+          <div class="acc">
+            <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-2-btn">Mon produit est resté bloqué. Je fais quoi&nbsp;?</button></h3>
+            <div class="acc__panel" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden>
+              <p>Ne secoue pas la machine (c'est lourd et dangereux). Signale-le au numéro affiché sur la machine ou via le formulaire. On te rembourse ou on te le remet au prochain passage.</p>
+            </div>
+          </div>
+          <div class="acc">
+            <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-3-btn">Où trouver les allergènes&nbsp;?</button></h3>
+            <div class="acc__panel" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden>
+              <p>La liste des ingrédients et allergènes est sur chaque emballage, visible à travers la vitre. Un doute&nbsp;? Écris-nous avant d'acheter, on te répond.</p>
+            </div>
+          </div>
+          <div class="acc">
+            <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-4-btn">Quels moyens de paiement sont acceptés&nbsp;?</button></h3>
+            <div class="acc__panel" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden>
+              <p>Carte bancaire et sans contact (téléphone, montre) partout. Les espèces dépendent de la machine&nbsp;: c'est indiqué dans la liste <a href="#emplacements">Où nous trouver</a>.</p>
+            </div>
+          </div>
+          <div class="acc">
+            <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-5-btn">Les machines sont accessibles à quelle heure&nbsp;?</button></h3>
+            <div class="acc__panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden>
+              <p>Nos machines tournent 24h/24. L'accès dépend des horaires d'ouverture du lieu qui les accueille.</p>
+            </div>
+          </div>
+          <div class="acc">
+            <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-6-btn">Je peux proposer un produit&nbsp;?</button></h3>
+            <div class="acc__panel" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden>
+              <p>Carrément. Écris-nous via le <a href="#contact">formulaire de contact</a> ou sur Instagram. Les idées les plus demandées entrent en machine.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 9. CONTACT ===================== -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact">
+        <div class="contact__info reveal">
+          <span class="eyebrow">Contact</span>
+          <h2 id="contact-title">Un souci, une idée&nbsp;? Écris-nous.</h2>
+          <p>On répond en général sous 24&nbsp;h.</p>
+          <ul class="contact__list">
+            <!-- [À COMPLÉTER] email, Instagram, téléphone -->
+            <li><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><div><strong>Email</strong><a href="mailto:contact@friandeasy.fr">contact@friandeasy.fr</a></div></li>
+            <li><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg></span><div><strong>Instagram</strong><a href="https://www.instagram.com/friandeasy/" target="_blank" rel="noopener">@friandeasy</a></div></li>
+            <li class="contact__alert"><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span><div><strong>Signaler une panne</strong><a href="tel:+33000000000">[À COMPLÉTER] 06 00 00 00 00</a><small>Aussi indiqué sur chaque machine.</small></div></li>
+          </ul>
+        </div>
+
+        <!-- Formulaire contact. Branchement Formspree : voir FORM_ENDPOINTS dans script.js -->
+        <form class="form card reveal" id="form-contact" data-form="contact" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="c-name">Nom *</label>
+              <input id="c-name" name="nom" type="text" autocomplete="name" required>
+              <p class="field__error" id="c-name-err"></p>
+            </div>
+            <div class="field">
+              <label for="c-email">Email *</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" required>
+              <p class="field__error" id="c-email-err"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="c-type">Type de demande *</label>
+            <select id="c-type" name="type_demande" required>
+              <option value="">Choisir…</option>
+              <option value="question">Question</option>
+              <option value="panne">Panne / remboursement</option>
+              <option value="produit">Suggestion de produit</option>
+              <option value="partenariat">Partenariat</option>
+              <option value="autre">Autre</option>
+            </select>
+            <p class="field__error" id="c-type-err"></p>
+          </div>
+          <div class="field">
+            <label for="c-msg">Message *</label>
+            <textarea id="c-msg" name="message" rows="5" required minlength="10"></textarea>
+            <p class="field__error" id="c-msg-err"></p>
+          </div>
+          <div class="field field--check">
+            <input id="c-consent" name="consentement" type="checkbox" required>
+            <label for="c-consent">J'accepte que mes données servent à traiter ma demande. <a href="confidentialite.html">En savoir plus</a> *</label>
+            <p class="field__error" id="c-consent-err"></p>
+          </div>
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn--primary btn--block" type="submit">Envoyer</button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== 10. FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#top" class="logo logo--light" aria-label="Friandeasy – retour en haut">
+          <img src="assets/favicon.svg" alt="" width="40" height="40" class="logo__icon" loading="lazy">
+          <span class="logo__word">Friand<span>easy</span></span>
+        </a>
+        <p>Distributeurs de snacks et boissons à Lyon.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/friandeasy/" target="_blank" rel="noopener" aria-label="Instagram Friandeasy"><svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg></a>
+          <a href="mailto:contact@friandeasy.fr" aria-label="Email Friandeasy"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="Liens rapides">
+        <h2 class="footer__title">Liens rapides</h2>
+        <ul>
+          <li><a href="#produits">Produits</a></li>
+          <li><a href="#emplacements">Où nous trouver</a></li>
+          <li><a href="#partenaire">Devenir partenaire</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Informations légales">
+        <h2 class="footer__title">Légal</h2>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="mentions-legales.html#cgv">CGV</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+          <li><button type="button" class="linklike" data-open-cookies>Gérer les cookies</button></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span data-year>2026</span> Friandeasy SAS · Lyon · SIRET [À COMPLÉTER]</p>
+    </div>
+  </footer>
+
+  <!-- Bouton retour en haut -->
+  <a href="#top" class="to-top" aria-label="Retour en haut de page"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+
+  <!-- Bannière cookies -->
+  <div class="cookies" role="dialog" aria-live="polite" aria-label="Cookies" hidden>
+    <p>🍪 On utilise juste le strict nécessaire (préférences, carte). Pas de pub, pas de pistage. <a href="confidentialite.html">En savoir plus</a></p>
+    <div class="cookies__actions">
+      <button type="button" class="btn btn--ghost btn--sm" data-cookies="refuse">Refuser</button>
+      <button type="button" class="btn btn--primary btn--sm" data-cookies="accept">OK pour moi</button>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

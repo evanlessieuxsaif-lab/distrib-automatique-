@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="24 24 432 432" role="img" aria-label="Friandeasy"><defs><linearGradient id="fz-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF4D6D"/></linearGradient></defs><g transform="translate(0 0)">
+  <rect x="24" y="24" width="432" height="432" rx="104" fill="url(#fz-grad)"/>
+  <rect x="126" y="102" width="228" height="288" rx="22" fill="#FFFFFF"/>
+  <rect x="156" y="132" width="168" height="138" rx="10" fill="#FFE3D6"/>
+  <g><circle cx="192" cy="180" r="17" fill="#FF7A3D"/><circle cx="240" cy="180" r="17" fill="#FF4D6D"/><circle cx="288" cy="180" r="17" fill="#FF7A3D"/>
+  <circle cx="192" cy="228" r="17" fill="#FF4D6D"/><circle cx="240" cy="228" r="17" fill="#FF7A3D"/><circle cx="288" cy="228" r="17" fill="#FF4D6D"/></g>
+  <rect x="156" y="294" width="48" height="36" rx="6" fill="#FF7A3D"/>
+  <rect x="216" y="294" width="48" height="36" rx="6" fill="#FF7A3D"/>
+  <rect x="276" y="306" width="48" height="24" rx="6" fill="#2B2B33"/>
+  <rect x="156" y="342" width="168" height="24" rx="12" fill="#FFD9C7"/>
+</g></svg>
