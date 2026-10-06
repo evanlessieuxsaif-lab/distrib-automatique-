@@ -48,6 +48,21 @@
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignoré */ } }
   };
 
+  /* ---------- BANDEAU CHANTIER (à retirer au lancement) ---------- */
+  const siteBanner = $('.site-banner');
+  if (siteBanner) {
+    // Le header sticky et le menu mobile se calent sous le bandeau via --banner-h
+    const syncBanner = () => document.documentElement.style.setProperty('--banner-h', siteBanner.offsetHeight + 'px');
+    if ('ResizeObserver' in window) new ResizeObserver(syncBanner).observe(siteBanner);
+    window.addEventListener('resize', syncBanner);
+    syncBanner();
+    $('.site-banner__close', siteBanner).addEventListener('click', () => {
+      siteBanner.hidden = true;
+      try { sessionStorage.setItem('fz-banner', 'closed'); } catch (e) { /* ignoré */ }
+      syncBanner();
+    });
+  }
+
   /* ---------- 1. NAVIGATION ---------- */
   const header = $('.header');
   const burger = $('.nav__burger');

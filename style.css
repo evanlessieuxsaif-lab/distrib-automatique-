@@ -53,6 +53,7 @@
 
   --container: 1160px;
   --header-h: 68px;
+  --banner-h: 0px;            /* hauteur du bandeau chantier, mise à jour par script.js */
   color-scheme: light;
 }
 
@@ -88,7 +89,7 @@
 
 /* ---------- 2. BASE ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + var(--banner-h) + 12px); -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   font-family: var(--f-body);
@@ -193,9 +194,26 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .note { text-align: center; margin-top: 32px; color: var(--muted); }
 
+/* ---------- BANDEAU CHANTIER (à retirer au lancement) ---------- */
+.site-banner {
+  position: sticky; top: 0; z-index: 120;
+  display: flex; align-items: center; justify-content: center; gap: .75rem;
+  padding: .6rem 1rem; background: var(--yellow); color: var(--ink);
+  font-weight: 600; font-size: .9rem; line-height: 1.4; text-align: center;
+}
+.site-banner p { margin: 0; }
+.site-banner[hidden], :root[data-banner="closed"] .site-banner { display: none; }
+.site-banner__close {
+  flex-shrink: 0; width: 32px; height: 32px; border: 0; border-radius: 50%;
+  background: rgba(43, 43, 51, .12); color: var(--ink); font-size: 1rem; line-height: 1; cursor: pointer;
+  transition: background-color .2s;
+}
+.site-banner__close:hover { background: rgba(43, 43, 51, .25); }
+.site-banner__close:focus-visible { outline-color: var(--ink); }
+
 /* ---------- 4. HEADER / NAV ---------- */
 .header {
-  position: sticky; top: 0; z-index: 100;
+  position: sticky; top: var(--banner-h); z-index: 100;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: saturate(160%) blur(10px); -webkit-backdrop-filter: saturate(160%) blur(10px);
   transition: box-shadow .3s;

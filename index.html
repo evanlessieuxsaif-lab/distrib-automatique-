@@ -8,6 +8,8 @@
   <title>Friandeasy – Distributeurs de snacks et boissons à Lyon</title>
   <meta name="description" content="Friandeasy installe des distributeurs de snacks et boissons à Lyon : résidences étudiantes, salles de sport, coworkings, entreprises. Zéro coût, zéro gestion pour les lieux.">
   <meta name="theme-color" content="#FF7A3D">
+  <!-- À RETIRER AU LANCEMENT : bloque l'indexation tant que le site est en chantier -->
+  <meta name="robots" content="noindex, nofollow">
   <!-- [À COMPLÉTER] remplacer https://www.friandeasy.fr par le vrai domaine partout -->
   <link rel="canonical" href="https://www.friandeasy.fr/">
 
@@ -33,6 +35,10 @@
       try {
         var t = localStorage.getItem('fz-theme');
         if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+      // Bandeau « site en création » déjà fermé pendant cette session ? (évite le flash)
+      try {
+        if (sessionStorage.getItem('fz-banner') === 'closed') document.documentElement.setAttribute('data-banner', 'closed');
       } catch (e) {}
     })();
   </script>
@@ -74,6 +80,12 @@
 </head>
 
 <body>
+  <!-- Bandeau chantier : à retirer au lancement (avec le meta robots du <head> et la section « BANDEAU » de script.js / style.css) -->
+  <div class="site-banner" role="status">
+    <p>🚧 Site en cours de création : certaines infos sont provisoires. Reviens bientôt !</p>
+    <button type="button" class="site-banner__close" aria-label="Fermer le bandeau">✕</button>
+  </div>
+
   <a class="skip-link" href="#main">Aller au contenu</a>
 
   <!-- ===== Sprite SVG : pictos réutilisables (produits, icônes) ===== -->
