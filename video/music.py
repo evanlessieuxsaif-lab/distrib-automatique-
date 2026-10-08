@@ -59,16 +59,16 @@ for b in range(bars):
     if b >= 3 and not last:
         for st, m in LEAD: add(out, t0 + st * S, pluck(m + (0 if b % 2 == 0 else -2)) * 0.2)
 # effets de transition aux coupes + impact + ding
-for tc in (2.0, 4.5, 8.5, 10.5, 12.5): add(out, tc - .45, whoosh(.45) * .9)
-add(out, 14.05, whoosh(.45) * 1.1)
-add(out, 14.5, kick() * 1.4); add(out, 14.5, snare() * 1.2)
-add(out, 14.9, ding(88)); add(out, 15.05, ding(91)); add(out, 15.2, ding(95))
+for tc in (2.0, 4.5, 6.0, 9.5, 11.5, 13.5): add(out, tc - .45, whoosh(.45) * .9)
+add(out, 15.05, whoosh(.45) * 1.1)
+add(out, 15.5, kick() * 1.4); add(out, 15.5, snare() * 1.2)
+add(out, 15.6, ding(88)); add(out, 15.72, ding(91)); add(out, 15.84, ding(95))
 # fondu final pour la boucle
 fade = np.ones(N); k = int(.35 * SR); fade[-k:] = np.linspace(1, 0, k); out *= fade
 out = np.tanh(out * 1.1) * 0.9
 
 # voix off + ducking
-VO = [(.30, 1), (2.00, 2), (4.60, 3), (8.70, 4), (14.80, 5)]
+VO = [(.30, 1), (1.70, 2), (6.20, 3), (9.60, 4), (15.80, 5)]
 voice = np.zeros(N)
 for t, i in VO:
     a, sr = sf.read(f"{sys.argv[1]}/vo{i}.wav"); assert sr == SR or True
