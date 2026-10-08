@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#FF7A3D">
   <!-- À RETIRER AU LANCEMENT : bloque l'indexation tant que le site est en chantier -->
   <meta name="robots" content="noindex, nofollow">
-  <!-- [À COMPLÉTER] remplacer https://www.friandeasy.fr par le vrai domaine partout -->
+  <!-- Domaine : https://www.friandeasy.fr (à remplacer partout si le domaine change) -->
   <link rel="canonical" href="https://www.friandeasy.fr/">
 
   <!-- Open Graph / réseaux sociaux -->
@@ -61,11 +61,8 @@
     "logo": "https://www.friandeasy.fr/assets/logo.svg",
     "image": "https://www.friandeasy.fr/assets/og-image.png",
     "email": "contact@friandeasy.fr",
-    "telephone": "+33000000000",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "[À COMPLÉTER]",
-      "postalCode": "69000",
       "addressLocality": "Lyon",
       "addressCountry": "FR"
     },
@@ -87,6 +84,24 @@
   </div>
 
   <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <!-- ===================== VIDÉO D'INTRO (pop-up à l'ouverture) ===================== -->
+  <!-- Affichée une fois par session ; fermable (croix, Échap, clic sur le fond). Fichiers : assets/video/ -->
+  <div class="intro-modal" id="intro-modal" role="dialog" aria-modal="true" aria-label="Vidéo de présentation de Friandeasy" hidden>
+    <div class="intro-modal__box" id="intro-frame">
+      <video class="intro__video" id="intro-video" muted autoplay loop playsinline preload="auto"
+             poster="assets/video/friandeasy-intro-poster.jpg"
+             data-src-wide="assets/video/friandeasy-intro.mp4" data-src-tall="assets/video/friandeasy-intro-vertical.mp4"
+             data-poster-wide="assets/video/friandeasy-intro-poster.jpg" data-poster-tall="assets/video/friandeasy-intro-poster-vertical.jpg"
+             aria-label="Vidéo : Friandeasy, vos distributeurs gourmands à Lyon. Snacks, boissons, et l'essentiel quand on en a besoin.">
+      </video>
+      <button type="button" class="intro-modal__close" id="intro-close" aria-label="Fermer la vidéo"><span aria-hidden="true">✕</span></button>
+      <div class="intro__ctrl">
+        <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false"><span aria-hidden="true">🔇</span> <span class="intro__lbl">Activer le son</span></button>
+        <button type="button" class="intro__btn" id="intro-pause" aria-pressed="false" aria-label="Mettre la vidéo en pause"><span aria-hidden="true">❚❚</span></button>
+      </div>
+    </div>
+  </div>
 
   <!-- ===== Sprite SVG : pictos réutilisables (produits, icônes) ===== -->
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -141,30 +156,6 @@
   </header>
 
   <main id="main">
-
-    <!-- ===================== 0. VIDÉO D'INTRO ===================== -->
-    <!-- Boucle muette (autoplay), sous-titres incrustés ; bouton son + pause. Fichiers : assets/video/ (voir video/ pour la régénérer) -->
-    <section class="intro" aria-label="Vidéo de présentation de Friandeasy">
-      <div class="container">
-        <div class="intro__frame" id="intro-frame">
-          <video class="intro__video" id="intro-video" muted autoplay loop playsinline preload="auto"
-                 poster="assets/video/friandeasy-intro-poster.jpg"
-                 data-src-wide="assets/video/friandeasy-intro.mp4" data-src-tall="assets/video/friandeasy-intro-vertical.mp4"
-                 data-poster-wide="assets/video/friandeasy-intro-poster.jpg" data-poster-tall="assets/video/friandeasy-intro-poster-vertical.jpg"
-                 aria-label="Vidéo : Friandeasy, vos distributeurs gourmands à Lyon. Snacks, boissons, et l'essentiel quand on en a besoin.">
-            <source src="assets/video/friandeasy-intro.mp4" type="video/mp4">
-          </video>
-          <div class="intro__ctrl">
-            <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false">
-              <span aria-hidden="true">🔇</span> <span class="intro__lbl">Activer le son</span>
-            </button>
-            <button type="button" class="intro__btn" id="intro-pause" aria-pressed="false" aria-label="Mettre la vidéo en pause">
-              <span aria-hidden="true">❚❚</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ===================== 1. HERO ===================== -->
     <section class="hero" aria-labelledby="hero-title">
@@ -262,7 +253,7 @@
           - data-cat : catégories séparées par des espaces (snacks, boissons, healthy, sucre, sale)
           - Image : remplacer le <div class="product__img"> par
             <img class="product__img" src="assets/produits/xxx.webp" alt="Nom du produit" loading="lazy" width="400" height="300">
-          - Prix : [À COMPLÉTER] avec vos vrais tarifs
+          - Prix : à ajuster avec vos vrais tarifs
         -->
         <ul class="products" aria-live="polite">
           <li class="product card" data-cat="snacks sale">
@@ -398,7 +389,7 @@
         </header>
 
         <div class="perks">
-          <article class="perk reveal"><span class="perk__big">0&nbsp;€</span><h3>Zéro coût</h3><p>Installation, machine, électricité du matériel&nbsp;: on prend en charge. Vous ne payez rien. <!-- [À COMPLÉTER] préciser les conditions (commission, électricité…) --></p></article>
+          <article class="perk reveal"><span class="perk__big">0&nbsp;€</span><h3>Zéro coût</h3><p>Installation, machine, électricité du matériel&nbsp;: on prend en charge. Vous ne payez rien.</p></article>
           <article class="perk reveal"><span class="perk__big">0&nbsp;h</span><h3>Zéro gestion</h3><p>Stock, pannes, monnaie, SAV&nbsp;: c'est notre job. Vous n'avez rien à faire.</p></article>
           <article class="perk reveal"><span class="perk__big">↻</span><h3>Réassort régulier</h3><p>On passe souvent. La machine reste pleine, les dates sont surveillées.</p></article>
           <article class="perk reveal"><span class="perk__big">+1</span><h3>Un vrai service</h3><p>Vos usagers ont de quoi manger et boire à toute heure. Un plus qu'ils remarquent.</p></article>
@@ -490,7 +481,6 @@
         <div class="about__text reveal">
           <span class="eyebrow">Notre histoire</span>
           <h2 id="apropos-title">Deux Lyonnais, une fringale</h2>
-          <!-- [À COMPLÉTER] ajuster l'histoire réelle -->
           <p>Tout est parti d'un constat simple&nbsp;: 22&nbsp;h, en révisions ou après une séance, et plus rien d'ouvert. Pas de quoi grignoter, pas même une bouteille d'eau.</p>
           <p>Alors Evan et Hippolyte ont lancé Friandeasy. L'idée&nbsp;: des distributeurs bien remplis, des produits qu'on a vraiment envie de manger, et un service carré pour les lieux qui nous accueillent.</p>
           <ul class="values">
@@ -505,13 +495,13 @@
             <div class="avatar avatar--1" aria-hidden="true">E</div>
             <h3>Evan</h3>
             <p class="founder__role">Cofondateur</p>
-            <p>[À COMPLÉTER] Une phrase sur Evan, son rôle, son snack préféré.</p>
+            <p>Cofondateur de Friandeasy, passionné par les bons snacks et les machines toujours bien remplies.</p>
           </article>
           <article class="founder card reveal">
             <div class="avatar avatar--2" aria-hidden="true">H</div>
             <h3>Hippolyte</h3>
             <p class="founder__role">Cofondateur</p>
-            <p>[À COMPLÉTER] Une phrase sur Hippolyte, son rôle, son snack préféré.</p>
+            <p>Cofondateur de Friandeasy, convaincu qu'un distributeur doit donner envie à chaque passage.</p>
           </article>
         </div>
       </div>
@@ -528,7 +518,7 @@
           <div class="acc">
             <h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-1" id="faq-1-btn">J'ai payé mais rien n'est tombé. Comment être remboursé&nbsp;?</button></h3>
             <div class="acc__panel" id="faq-1" role="region" aria-labelledby="faq-1-btn" hidden>
-              <p>Pas de panique. Envoie-nous via le <a href="#contact">formulaire</a> (type «&nbsp;Panne / remboursement&nbsp;»)&nbsp;: le lieu, le numéro de la machine, l'heure et le produit. Si tu as payé par carte, on te rembourse sous 48&nbsp;h ouvrées. <!-- [À COMPLÉTER] préciser la procédure réelle --></p>
+              <p>Pas de panique. Envoie-nous via le <a href="#contact">formulaire</a> (type «&nbsp;Panne / remboursement&nbsp;»)&nbsp;: le lieu, le numéro de la machine, l'heure et le produit. Si tu as payé par carte, on te rembourse sous 48&nbsp;h ouvrées.</p>
             </div>
           </div>
           <div class="acc">
@@ -573,10 +563,9 @@
           <h2 id="contact-title">Un souci, une idée&nbsp;? Écris-nous.</h2>
           <p>On répond en général sous 24&nbsp;h.</p>
           <ul class="contact__list">
-            <!-- [À COMPLÉTER] email, Instagram, téléphone -->
             <li><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><div><strong>Email</strong><a href="mailto:contact@friandeasy.fr">contact@friandeasy.fr</a></div></li>
             <li><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg></span><div><strong>Instagram</strong><a href="https://www.instagram.com/friandeasy/" target="_blank" rel="noopener">@friandeasy</a></div></li>
-            <li class="contact__alert"><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span><div><strong>Signaler une panne</strong><a href="tel:+33000000000">[À COMPLÉTER] 06 00 00 00 00</a><small>Aussi indiqué sur chaque machine.</small></div></li>
+            <li class="contact__alert"><span class="contact__icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span><div><strong>Signaler une panne</strong><a href="#form-contact">Via le formulaire ci-dessous</a><small>Précise le lieu et le produit.</small></div></li>
           </ul>
         </div>
 
@@ -659,7 +648,7 @@
       </nav>
     </div>
     <div class="container footer__bottom">
-      <p>© <span data-year>2026</span> Friandeasy SAS · Lyon · SIRET [À COMPLÉTER]</p>
+      <p>© <span data-year>2026</span> Friandeasy SAS · Lyon</p>
     </div>
   </footer>
 

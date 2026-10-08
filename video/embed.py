@@ -6,5 +6,5 @@ M = {'poster': 'friandeasy-intro-poster.jpg', 'data-src-wide': 'friandeasy-intro
      'data-poster-wide': 'friandeasy-intro-poster.jpg', 'data-poster-tall': 'friandeasy-intro-poster-vertical.jpg'}
 for attr, f in M.items():
     mime = 'video/mp4' if f.endswith('mp4') else 'image/jpeg'
-    s = re.sub(r'(\s%s=")data:[^"]+"' % attr, lambda m: m.group(1) + b(f, mime) + '"', s, count=1)
+    s = re.sub(r'(\s%s=")(?:data:[^"]+|assets/video/[^"]+)"' % attr, lambda m: m.group(1) + b(f, mime) + '"', s, count=1)
 open('index-standalone.html', 'w').write(s)

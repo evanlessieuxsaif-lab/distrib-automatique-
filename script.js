@@ -6,7 +6,7 @@
    3. Animations au scroll           4. Filtres produits
    5. Emplacements + carte Leaflet   6. FAQ accordéon
    7. Formulaires                    8. Cookies   9. Retour en haut
-   10. Vidéo d'intro (son / pause)
+   10. Vidéo d'intro (pop-up, son / pause)
    ========================================================= */
 (function () {
   'use strict';
@@ -14,28 +14,28 @@
   /* ---------- 0. CONFIGURATION ---------- */
 
   /**
-   * EMPLACEMENTS [À COMPLÉTER] : remplacer par vos vrais lieux.
+   * EMPLACEMENTS : à remplacer par vos vrais lieux (noms, adresses, GPS).
    * status : "actif" ou "bientot"
    * pay    : liste parmi "CB", "Sans contact", "Espèces"
    * lat/lng : coordonnées GPS (clic droit sur openstreetmap.org > « Afficher l'adresse »)
    */
   const LOCATIONS = [
-    { name: 'Résidence étudiante [À COMPLÉTER]', type: 'Résidence étudiante', address: 'Lyon 7e – adresse à compléter', lat: 45.7485, lng: 4.8420, status: 'actif', pay: ['CB', 'Sans contact', 'Espèces'] },
-    { name: "Salle d'escalade [À COMPLÉTER]", type: 'Salle d’escalade', address: 'Lyon 9e – adresse à compléter', lat: 45.7740, lng: 4.8060, status: 'actif', pay: ['CB', 'Sans contact'] },
-    { name: 'Coworking [À COMPLÉTER]', type: 'Coworking', address: 'Lyon 3e (Part-Dieu) – adresse à compléter', lat: 45.7605, lng: 4.8590, status: 'bientot', pay: ['CB', 'Sans contact'] },
-    { name: 'Salle de sport [À COMPLÉTER]', type: 'Salle de sport', address: 'Villeurbanne – adresse à compléter', lat: 45.7710, lng: 4.8900, status: 'bientot', pay: ['CB', 'Sans contact'] },
-    { name: 'Entreprise [À COMPLÉTER]', type: 'Entreprise', address: 'Lyon 7e (Gerland) – adresse à compléter', lat: 45.7290, lng: 4.8330, status: 'bientot', pay: ['CB', 'Sans contact'] }
+    { name: 'Résidence étudiante', type: 'Résidence étudiante', address: 'Lyon 7e', lat: 45.7485, lng: 4.8420, status: 'actif', pay: ['CB', 'Sans contact', 'Espèces'] },
+    { name: "Salle d'escalade", type: 'Salle d’escalade', address: 'Lyon 9e', lat: 45.7740, lng: 4.8060, status: 'actif', pay: ['CB', 'Sans contact'] },
+    { name: 'Coworking', type: 'Coworking', address: 'Lyon 3e (Part-Dieu)', lat: 45.7605, lng: 4.8590, status: 'bientot', pay: ['CB', 'Sans contact'] },
+    { name: 'Salle de sport', type: 'Salle de sport', address: 'Villeurbanne', lat: 45.7710, lng: 4.8900, status: 'bientot', pay: ['CB', 'Sans contact'] },
+    { name: 'Entreprise', type: 'Entreprise', address: 'Lyon 7e (Gerland)', lat: 45.7290, lng: 4.8330, status: 'bientot', pay: ['CB', 'Sans contact'] }
   ];
 
   /**
    * FORMULAIRES : branchement Formspree (ou similaire).
    * 1. Créer 2 formulaires sur https://formspree.io
    * 2. Coller les URL ci-dessous, ex : 'https://formspree.io/f/abcdwxyz'
-   * Tant que c'est vide, l'envoi est simulé (message de succès sans envoi réel).
+   * Tant que c'est vide, le message s'ouvre dans l'application mail de la personne (mailto).
    */
   const FORM_ENDPOINTS = {
-    contact: '', // [À COMPLÉTER] ex : 'https://formspree.io/f/xxxxxxx'
-    partner: ''  // [À COMPLÉTER] ex : 'https://formspree.io/f/yyyyyyy'
+    contact: '', // ex : 'https://formspree.io/f/xxxxxxx'
+    partner: ''  // ex : 'https://formspree.io/f/yyyyyyy'
   };
 
   const LYON = [45.757, 4.845];
@@ -328,8 +328,12 @@
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
         } else {
-          // Aucun endpoint configuré : envoi simulé
-          await new Promise(r => setTimeout(r, 600));
+          // Aucun service d'envoi configuré : on ouvre l'application mail avec le message prérempli
+          const d = new FormData(form), lines = [];
+          d.forEach((v, k) => { if (k !== '_gotcha' && typeof v === 'string' && v.trim() && !form.querySelector('.hp[name="' + k + '"]')) lines.push(k + ' : ' + v.trim()); });
+          const subj = form.dataset.form === 'partner' ? 'Demande partenaire Friandeasy' : 'Message depuis friandeasy.fr';
+          window.location.href = 'mailto:contact@friandeasy.fr?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(lines.join('\n'));
+          await new Promise(r => setTimeout(r, 400));
         }
         form.reset();
         fields.forEach(f => showError(f, ''));
@@ -353,7 +357,7 @@
   $$('[data-cookies]', banner).forEach(b => b.addEventListener('click', () => {
     store.set('fz-cookies', b.dataset.cookies); // "accept" ou "refuse"
     banner.hidden = true;
-    // [À COMPLÉTER] si vous ajoutez un outil de mesure d'audience,
+    // Si vous ajoutez un outil de mesure d'audience,
     // ne le charger que si store.get('fz-cookies') === 'accept'.
   }));
   $$('[data-open-cookies]').forEach(b => b.addEventListener('click', () => {
@@ -361,16 +365,17 @@
     $('[data-cookies="accept"]', banner).focus();
   }));
 
-  /* ---------- 10. VIDÉO D'INTRO (muette en boucle, bouton son + pause) ---------- */
+  /* ---------- 10. VIDÉO D'INTRO (pop-up à l'ouverture, une fois par session) ---------- */
   (function () {
-    const v = $('#intro-video'), frame = $('#intro-frame'), snd = $('#intro-sound'), pz = $('#intro-pause');
-    if (!v) return;
-    // Mobile portrait : version verticale 9:16 (swap avant lecture)
+    const modal = $('#intro-modal'), v = $('#intro-video'), box = $('#intro-frame');
+    if (!modal || !v) return;
+    const snd = $('#intro-sound'), pz = $('#intro-pause'), closeBtn = $('#intro-close');
+    // Mobile portrait : version verticale 9:16
     const tall = window.matchMedia('(max-width: 640px) and (orientation: portrait)');
     function pickSource() {
       const t = tall.matches, src = t ? v.dataset.srcTall : v.dataset.srcWide;
-      frame.classList.toggle('is-tall', t);
-      if (!v.currentSrc.endsWith(src)) { v.poster = t ? v.dataset.posterTall : v.dataset.posterWide; v.src = src; v.load(); if (!reduceMotion) v.play().catch(() => {}); }
+      box.classList.toggle('is-tall', t);
+      if (v.getAttribute('src') !== src) { v.poster = t ? v.dataset.posterTall : v.dataset.posterWide; v.src = src; v.load(); }
     }
     pickSource(); (tall.addEventListener ? tall.addEventListener('change', pickSource) : tall.addListener(pickSource));
     function syncSound() {
@@ -388,13 +393,33 @@
     snd.addEventListener('click', () => { v.muted = !v.muted; if (!v.muted) { v.volume = 1; v.play().catch(() => {}); } syncSound(); });
     pz.addEventListener('click', () => { v.paused ? v.play().catch(() => {}) : v.pause(); });
     ['play', 'pause'].forEach(e => v.addEventListener(e, syncPause));
-    // Respect de « réduire les animations » : pas de lecture automatique, l'affiche reste visible
-    if (reduceMotion) { v.removeAttribute('autoplay'); v.pause(); }
-    // Économie de données/batterie : pause hors écran
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) { if (!v.paused) { v.dataset.auto = '1'; v.pause(); } } else if (v.dataset.auto) { delete v.dataset.auto; v.play().catch(() => {}); }
-    }), { threshold: 0.2 }).observe(frame);
     syncSound(); syncPause();
+
+    let opener = null;
+    function open() {
+      opener = document.activeElement;
+      modal.hidden = false; document.body.classList.add('intro-open');
+      if (reduceMotion) { v.pause(); } else { v.play().catch(() => {}); }
+      closeBtn.focus();
+    }
+    function close() {
+      v.pause(); modal.hidden = true; document.body.classList.remove('intro-open');
+      try { sessionStorage.setItem('fz-intro', '1'); } catch (e) {}
+      if (opener && opener.focus) opener.focus();
+    }
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => {
+      if (modal.hidden) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'Tab') { // le focus reste dans la fenêtre
+        const f = $$('button', modal), first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    let seen = false; try { seen = !!sessionStorage.getItem('fz-intro'); } catch (e) {}
+    if (!seen) setTimeout(open, 600);
   })();
 
   /* ---------- 9. DIVERS ---------- */
