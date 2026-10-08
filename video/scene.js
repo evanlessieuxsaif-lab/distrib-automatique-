@@ -522,7 +522,7 @@ SC.push({ t0: 13.0, t1: DURATION, draw(c, lt) {
   c.restore();
   kText(c, 'Friandeasy', tx, ty + (V ? 20 : 20), V ? 150 : 180, lt, .6, { fill: '#fff', maxW: W * (V ? .9 : .5), stag: .04, grad: ['#FFFFFF', C.peach] });
   const tagP = lt - 1.5;
-  kText(c, 'Craque pour le plaisir.', tx, ty + (V ? 140 : 150), V ? 62 : 76, lt, 1.45, { fill: C.yellow, maxW: W * (V ? .92 : .52), stag: .02, grad: [C.yellow, C.orange], shadow: true });
+  kText(c, 'Craque pour le plaisir.', tx, ty + (V ? 140 : 150), V ? 62 : 76, lt, 1.0, { fill: C.yellow, maxW: W * (V ? .92 : .52), stag: .02, grad: [C.yellow, C.orange], shadow: true });
   banner(c, 'friandeasy.fr', tx, ty + (V ? 290 : 300), V ? 70 : 84, lt, 2.4, C.pink, '#fff', -.03);
   // pulsation du bouton
   const pulse = lt > 2.8 ? Math.sin((lt - 2.8) * 4) * .5 + .5 : 0;
@@ -576,8 +576,8 @@ function frame(t) {
 }
 
 /* ---------- sous-titres incrustés (voix off) ---------- */
-const SUBS = [[.3, 1.35, 'Un petit creux ?'], [2.0, 4.1, 'Une envie de sucré, de frais, de croquant ?'], [4.6, 7.6, 'Friandeasy, vos distributeurs gourmands à Lyon.'],
-  [8.1, 10.95, 'Snacks, boissons, et l’essentiel quand on en a besoin.'], [13.4, 15.7, 'Friandeasy. Craque pour le plaisir.']];
+const SUBS = [[.3, 1.25, 'Un petit creux ?'], [2.0, 4.0, 'Une envie de sucré, de frais, de croquant ?'], [4.6, 7.0, 'Friandeasy, vos distributeurs gourmands à Lyon.'],
+  [8.1, 10.7, 'Snacks, boissons, et l’essentiel quand on en a besoin.'], [13.4, 15.2, 'Friandeasy. Craque pour le plaisir.']];
 function wrap(c, text, maxW) {
   const words = text.split(' '), lines = []; let cur = '';
   for (const w of words) { const test = cur ? cur + ' ' + w : w; if (c.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; } else cur = test; }
