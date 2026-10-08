@@ -1,0 +1,15 @@
+# Vidéo d'intro Friandeasy
+
+Animation 100 % code (Canvas 2D + tracés vectoriels originaux, police Poppins OFL), rendue image par image.
+
+- `scene.html` / `scene.js` : l'animation. `scene.html?fmt=h` (1920×1080) ou `?fmt=v` (1080×1920) ; `&play=1` pour la voir tourner dans le navigateur (sans son).
+- `tts.py` : voix off FR (Kokoro-82M, Apache-2.0, voix `ff_siwis`) → `build/vo1..5.wav`.
+- `music.py` : boucle funky 120 BPM synthétisée en numpy (aucun sample, aucun droit tiers) + mix voix/ducking → mp3.
+- `render.js` : capture headless (Playwright/Chromium) → ffmpeg. `build.sh` enchaîne tout et encode en H.264 2 passes (< 8 Mo).
+
+```
+MODELS=/chemin/vers/kokoro ./build.sh     # kokoro.onnx + voices.bin dans $MODELS
+```
+Sorties dans `../assets/video/` : `friandeasy-intro.mp4` (16:9), `friandeasy-intro-vertical.mp4` (9:16), `friandeasy-intro.mp3`, affiches `.jpg`.
+
+Pour changer un texte ou un timing : `SC` (scènes) et `SUBS` dans `scene.js`, `VO` dans `music.py`.

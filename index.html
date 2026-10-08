@@ -142,6 +142,30 @@
 
   <main id="main">
 
+    <!-- ===================== 0. VIDÉO D'INTRO ===================== -->
+    <!-- Boucle muette (autoplay), sous-titres incrustés ; bouton son + pause. Fichiers : assets/video/ (voir video/ pour la régénérer) -->
+    <section class="intro" aria-label="Vidéo de présentation de Friandeasy">
+      <div class="container">
+        <div class="intro__frame" id="intro-frame">
+          <video class="intro__video" id="intro-video" muted autoplay loop playsinline preload="auto"
+                 poster="assets/video/friandeasy-intro-poster.jpg"
+                 data-src-wide="assets/video/friandeasy-intro.mp4" data-src-tall="assets/video/friandeasy-intro-vertical.mp4"
+                 data-poster-wide="assets/video/friandeasy-intro-poster.jpg" data-poster-tall="assets/video/friandeasy-intro-poster-vertical.jpg"
+                 aria-label="Vidéo : Friandeasy, vos distributeurs gourmands à Lyon. Snacks, boissons, et l'essentiel quand on en a besoin.">
+            <source src="assets/video/friandeasy-intro.mp4" type="video/mp4">
+          </video>
+          <div class="intro__ctrl">
+            <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false">
+              <span aria-hidden="true">🔇</span> <span class="intro__lbl">Activer le son</span>
+            </button>
+            <button type="button" class="intro__btn" id="intro-pause" aria-pressed="false" aria-label="Mettre la vidéo en pause">
+              <span aria-hidden="true">❚❚</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== 1. HERO ===================== -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero__grid">

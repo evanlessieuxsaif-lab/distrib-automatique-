@@ -6,6 +6,7 @@
    3. Animations au scroll           4. Filtres produits
    5. Emplacements + carte Leaflet   6. FAQ accordéon
    7. Formulaires                    8. Cookies   9. Retour en haut
+   10. Vidéo d'intro (son / pause)
    ========================================================= */
 (function () {
   'use strict';
@@ -359,6 +360,42 @@
     banner.hidden = false;
     $('[data-cookies="accept"]', banner).focus();
   }));
+
+  /* ---------- 10. VIDÉO D'INTRO (muette en boucle, bouton son + pause) ---------- */
+  (function () {
+    const v = $('#intro-video'), frame = $('#intro-frame'), snd = $('#intro-sound'), pz = $('#intro-pause');
+    if (!v) return;
+    // Mobile portrait : version verticale 9:16 (swap avant lecture)
+    const tall = window.matchMedia('(max-width: 640px) and (orientation: portrait)');
+    function pickSource() {
+      const t = tall.matches, src = t ? v.dataset.srcTall : v.dataset.srcWide;
+      frame.classList.toggle('is-tall', t);
+      if (!v.currentSrc.endsWith(src)) { v.poster = t ? v.dataset.posterTall : v.dataset.posterWide; v.src = src; v.load(); if (!reduceMotion) v.play().catch(() => {}); }
+    }
+    pickSource(); (tall.addEventListener ? tall.addEventListener('change', pickSource) : tall.addListener(pickSource));
+    function syncSound() {
+      const on = !v.muted;
+      snd.setAttribute('aria-pressed', String(on));
+      snd.firstElementChild.textContent = on ? '🔊' : '🔇';
+      snd.querySelector('.intro__lbl').textContent = on ? 'Couper le son' : 'Activer le son';
+    }
+    function syncPause() {
+      const paused = v.paused;
+      pz.setAttribute('aria-pressed', String(paused));
+      pz.setAttribute('aria-label', paused ? 'Relancer la vidéo' : 'Mettre la vidéo en pause');
+      pz.firstElementChild.textContent = paused ? '▶' : '❚❚';
+    }
+    snd.addEventListener('click', () => { v.muted = !v.muted; if (!v.muted) { v.volume = 1; v.play().catch(() => {}); } syncSound(); });
+    pz.addEventListener('click', () => { v.paused ? v.play().catch(() => {}) : v.pause(); });
+    ['play', 'pause'].forEach(e => v.addEventListener(e, syncPause));
+    // Respect de « réduire les animations » : pas de lecture automatique, l'affiche reste visible
+    if (reduceMotion) { v.removeAttribute('autoplay'); v.pause(); }
+    // Économie de données/batterie : pause hors écran
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) { if (!v.paused) { v.dataset.auto = '1'; v.pause(); } } else if (v.dataset.auto) { delete v.dataset.auto; v.play().catch(() => {}); }
+    }), { threshold: 0.2 }).observe(frame);
+    syncSound(); syncPause();
+  })();
 
   /* ---------- 9. DIVERS ---------- */
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
