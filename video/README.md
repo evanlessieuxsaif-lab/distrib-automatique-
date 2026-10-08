@@ -1,9 +1,9 @@
 # Vidéo d'intro Friandeasy
 
-Animation 100 % code (Canvas 2D + tracés vectoriels originaux, police Poppins OFL), rendue image par image.
+Animation 100 % code, durée 22 s (Canvas 2D + tracés vectoriels originaux, police Poppins OFL), rendue image par image.
 
 - `scene.html` / `scene.js` : l'animation. `scene.html?fmt=h` (1920×1080) ou `?fmt=v` (1080×1920) ; `&play=1` pour la voir tourner dans le navigateur (sans son).
-- `tts.py` : voix off FR (Kokoro-82M, Apache-2.0, voix `ff_siwis`) → `build/vo1..5.wav`.
+- `voix/vo1..5.mp3` : voix off naturelle (ElevenLabs via Higgsfield). `tts.py` : voix locale de secours (Kokoro-82M, Apache-2.0) utilisée si `voix/` est absent.
 - `music.py` : boucle funky 120 BPM synthétisée en numpy (aucun sample, aucun droit tiers) + mix voix/ducking → mp3.
 - `render.js` : capture headless (Playwright/Chromium) → ffmpeg. `build.sh` enchaîne tout et encode en H.264 2 passes (< 8 Mo).
 

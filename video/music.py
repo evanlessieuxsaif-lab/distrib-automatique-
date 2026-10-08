@@ -1,7 +1,7 @@
 """Boucle funky/pop originale (synthèse numpy, aucun sample externe) + mix avec la voix off.
 Usage: python3 music.py <build_dir> <sortie_mix.wav>   (build_dir contient vo1..vo5.wav)"""
 import sys, numpy as np, soundfile as sf
-SR = 44100; BPM = 120; DUR = 20.0
+SR = 44100; BPM = 120; DUR = 22.0
 B = 60 / BPM; S = B / 4                      # temps / double-croche
 N = int(SR * DUR); rng = np.random.default_rng(7)
 out = np.zeros(N)
@@ -59,23 +59,26 @@ for b in range(bars):
     if b >= 3 and not last:
         for st, m in LEAD: add(out, t0 + st * S, pluck(m + (0 if b % 2 == 0 else -2)) * 0.2)
 # effets de transition aux coupes + impact + ding
-for tc in (2.0, 4.5, 8.0, 10.9): add(out, tc - .45, whoosh(.45) * .9)
-add(out, 12.55, whoosh(.45) * 1.1)
-add(out, 13.0, kick() * 1.4); add(out, 13.0, snare() * 1.2)
-add(out, 13.4, ding(88)); add(out, 13.55, ding(91)); add(out, 13.7, ding(95))
+for tc in (2.0, 4.5, 8.5, 10.5, 12.5): add(out, tc - .45, whoosh(.45) * .9)
+add(out, 14.05, whoosh(.45) * 1.1)
+add(out, 14.5, kick() * 1.4); add(out, 14.5, snare() * 1.2)
+add(out, 14.9, ding(88)); add(out, 15.05, ding(91)); add(out, 15.2, ding(95))
 # fondu final pour la boucle
 fade = np.ones(N); k = int(.35 * SR); fade[-k:] = np.linspace(1, 0, k); out *= fade
 out = np.tanh(out * 1.1) * 0.9
 
 # voix off + ducking
-VO = [(.30, 1), (2.00, 2), (4.60, 3), (8.10, 4), (13.40, 5)]
+VO = [(.30, 1), (2.00, 2), (4.60, 3), (8.70, 4), (14.80, 5)]
 voice = np.zeros(N)
 for t, i in VO:
     a, sr = sf.read(f"{sys.argv[1]}/vo{i}.wav"); assert sr == SR or True
     if sr != SR:
         a = np.interp(np.arange(int(len(a) * SR / sr)) / SR, np.arange(len(a)) / sr, a)
+    a = np.asarray(a, dtype=float)
+    act = a[np.abs(a) > 0.02 * np.abs(a).max()]
+    a = a * (0.16 / max(1e-6, np.sqrt(np.mean(act ** 2))))      # volume égal d'une phrase à l'autre
     add(voice, t, a)
-voice /= max(1e-6, np.abs(voice).max()); voice *= 0.95
+voice = np.tanh(voice * 1.4) * 0.8
 env = np.abs(voice); w = int(.05 * SR)
 env = np.convolve(env, np.ones(w) / w, "same"); env = np.convolve(env, np.ones(int(.25 * SR)) / int(.25 * SR), "same")
 duck = np.clip(env * 6, 0, 1)

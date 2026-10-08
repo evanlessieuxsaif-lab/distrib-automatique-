@@ -9,7 +9,7 @@ const cv = document.getElementById('c'); cv.width = W; cv.height = H;
 const ctx = cv.getContext('2d');
 const snap = document.createElement('canvas'); snap.width = W; snap.height = H;
 const sctx = snap.getContext('2d');
-const DURATION = 20;
+const DURATION = 22;
 
 /* ---------- palette (celle du site) ---------- */
 const C = { orange: '#FF7A3D', pink: '#FF4D6D', yellow: '#FFD23F', turq: '#2EC4B6', ink: '#2B2B33', peach: '#FFE3D6',
@@ -404,25 +404,25 @@ SC.push({ t0: 3.6, t1: 4.5, draw(c, lt) {
 }});
 
 // 3. Le distributeur — présentation
-SC.push({ t0: 4.5, t1: 8.0, draw(c, lt) {
-  c.save(); cam(c, lt, 1.0, 1.06, 3.5);
+SC.push({ t0: 4.5, t1: 8.5, draw(c, lt) {
+  c.save(); cam(c, lt, 1.0, 1.06, 4);
   const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#3A1B5E'); g.addColorStop(1, '#14101D'); c.fillStyle = g; c.fillRect(0, 0, W, H);
   rays(c, W * (V ? .5 : .72), H * (V ? .56 : .5), lt, 'rgba(255,122,61,.1)', 12, .15);
   // néons d'ambiance
   const gl = c.createRadialGradient(W * (V ? .5 : .72), H * (V ? .56 : .5), 0, W * (V ? .5 : .72), H * (V ? .56 : .5), 700); gl.addColorStop(0, 'rgba(255,77,109,.55)'); gl.addColorStop(1, 'rgba(255,77,109,0)'); c.fillStyle = gl; c.fillRect(0, 0, W, H);
   // machine entre par le bas, allumée à moitié (lueur chaude qui monte)
-  const p = outBack(prog(lt, .1, .75)), lit = .25 + .2 * prog(lt, 1.5, 3.4);
+  const p = outBack(prog(lt, .1, .75)), lit = .25 + .2 * prog(lt, 1.5, 3.8);
   c.save(); c.translate(W * (V ? .5 : .72), H * (V ? .56 : .46) + (1 - p) * 900); c.rotate((1 - p) * .12); const ms = (V ? .95 : .9); c.scale(ms, ms); machine(c, lit, lt); c.restore();
   const tx = V ? W / 2 : W * .3;
   kText(c, 'FRIANDEASY', tx, H * (V ? .12 : .3), V ? 150 : 190, lt, .15, { grad: ['#FFFFFF', C.peach], maxW: W * (V ? .92 : .5), stag: .05, tilt: -.04 });
-  banner(c, 'vos distributeurs gourmands', tx, H * (V ? .19 : .52), V ? 46 : 58, lt, 1.5, C.pink, '#fff', -.04);
-  banner(c, 'à Lyon', tx, H * (V ? .255 : .66), V ? 56 : 72, lt, 2.3, C.turq, C.ink, .03);
+  banner(c, 'vos distributeurs gourmands', tx, H * (V ? .19 : .52), V ? 46 : 58, lt, 1.8, C.pink, '#fff', -.04);
+  banner(c, 'à Lyon', tx, H * (V ? .255 : .66), V ? 56 : 72, lt, 3.2, C.turq, C.ink, .03);
   c.fillStyle = C.yellow; sparkles(c, lt, 10, 33, [0, 0, W, H], C.yellow);
   c.restore();
 }});
 
 // 4a. SNACKS
-SC.push({ t0: 8.0, t1: 8.7, draw(c, lt) {
+SC.push({ t0: 8.5, t1: 9.5, draw(c, lt) {
   c.save(); cam(c, lt, 1.0, 1.14, .7, .02, -.02);
   bg(c, '#FFF08A', '#F2A900', lt, { dots: true, dotCol: 'rgba(255,255,255,.3)', rayCol: 'rgba(255,255,255,.28)' });
   const fl = H * .72;
@@ -438,7 +438,7 @@ SC.push({ t0: 8.0, t1: 8.7, draw(c, lt) {
 }});
 
 // 4b. BOISSONS
-SC.push({ t0: 8.7, t1: 9.5, draw(c, lt) {
+SC.push({ t0: 9.5, t1: 10.5, draw(c, lt) {
   c.save(); cam(c, lt, 1.14, 1.0, .8, .0, -.02);
   bg(c, '#7CF2E3', '#0E9DA6', lt, { rayCol: 'rgba(255,255,255,.2)', n: 16 });
   const cols = [C.orange, C.pink, C.blue, C.yellow, C.violet];
@@ -454,8 +454,8 @@ SC.push({ t0: 8.7, t1: 9.5, draw(c, lt) {
 }});
 
 // 4c. L'ESSENTIEL
-SC.push({ t0: 9.5, t1: 10.9, draw(c, lt) {
-  c.save(); cam(c, lt, 1.0, 1.1, 1.4, -.02, .02);
+SC.push({ t0: 10.5, t1: 12.5, draw(c, lt) {
+  c.save(); cam(c, lt, 1.0, 1.1, 2.0, -.02, .02);
   bg(c, '#FF9DB1', '#D6305A', lt, { dots: true, rayCol: 'rgba(255,255,255,.18)' });
   const p = outBack(prog(lt, .0, .5));
   c.save(); c.translate(W * (V ? .32 : .36), H * (V ? .56 : .56) + (1 - p) * 600); c.rotate(-.1 + Math.sin(lt * 3) * .03); const s = (V ? 2.3 : 2.9) * U; c.scale(s, s); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 40; c.shadowOffsetY = 22; bottle(c); c.restore();
@@ -465,12 +465,12 @@ SC.push({ t0: 9.5, t1: 10.9, draw(c, lt) {
   c.save(); c.translate(W * (V ? .72 : .84), H * (V ? .48 : .45) + (1 - p3) * 600); c.rotate(-.2); const s3 = (V ? 1.4 : 1.8) * U; c.scale(s3, s3); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.shadowOffsetY = 18; wrapped(c, C.yellow, C.orange); c.restore();
   sparkles(c, lt, 10, 17);
   kText(c, "L'ESSENTIEL", W / 2, H * (V ? .15 : .17), V ? 190 : 250, lt, .1, { fill: '#fff', tilt: -.03, maxW: W * .92, stag: .04 });
-  banner(c, 'quand on en a besoin', W / 2, H * (V ? .26 : .3), V ? 46 : 58, lt, .7, C.ink, '#fff', .02);
+  banner(c, 'quand on en a besoin', W / 2, H * (V ? .26 : .3), V ? 46 : 58, lt, .9, C.ink, '#fff', .02);
   c.restore();
 }});
 
 // 5. Pluie de bonbons + MIAM
-SC.push({ t0: 10.9, t1: 13.0, draw(c, lt) {
+SC.push({ t0: 12.5, t1: 14.5, draw(c, lt) {
   c.save(); cam(c, lt, 1.0, 1.18, 2.1, .02, -.03);
   bg(c, '#FFD23F', '#FF4D6D', lt, { dots: true, dotCol: 'rgba(255,255,255,.2)', rayCol: 'rgba(255,255,255,.22)', n: 18, speed: .4 });
   const fl = H * .88;
@@ -495,7 +495,7 @@ SC.push({ t0: 10.9, t1: 13.0, draw(c, lt) {
 }});
 
 // 6. Final : le distributeur s'illumine + logo
-SC.push({ t0: 13.0, t1: DURATION, draw(c, lt) {
+SC.push({ t0: 14.5, t1: DURATION, draw(c, lt) {
   const g = c.createRadialGradient(W / 2, H * .45, 40, W / 2, H / 2, Math.hypot(W, H) * .7);
   const litP = outCubic(prog(lt, .15, 1.1));
   g.addColorStop(0, `rgb(${Math.round(lerp(60, 120, litP))},${Math.round(lerp(30, 50, litP))},${Math.round(lerp(70, 90, litP))})`); g.addColorStop(1, '#14101D'); c.fillStyle = g; c.fillRect(0, 0, W, H);
@@ -520,12 +520,12 @@ SC.push({ t0: 13.0, t1: DURATION, draw(c, lt) {
   c.save(); c.translate(tx, ty); c.scale(lp, lp);
   const ic = icon; if (ic && ic.complete) { const s = V ? 150 : 170; c.drawImage(ic, -s / 2, -s - (V ? 70 : 78), s, s); }
   c.restore();
-  kText(c, 'Friandeasy', tx, ty + (V ? 20 : 20), V ? 150 : 180, lt, .6, { fill: '#fff', maxW: W * (V ? .9 : .5), stag: .04, grad: ['#FFFFFF', C.peach] });
+  kText(c, 'Friandeasy', tx, ty + (V ? 20 : 20), V ? 150 : 180, lt, .3, { fill: '#fff', maxW: W * (V ? .9 : .5), stag: .04, grad: ['#FFFFFF', C.peach] });
   const tagP = lt - 1.5;
-  kText(c, 'Craque pour le plaisir.', tx, ty + (V ? 140 : 150), V ? 62 : 76, lt, 1.0, { fill: C.yellow, maxW: W * (V ? .92 : .52), stag: .02, grad: [C.yellow, C.orange], shadow: true });
-  banner(c, 'friandeasy.fr', tx, ty + (V ? 290 : 300), V ? 70 : 84, lt, 2.4, C.pink, '#fff', -.03);
+  kText(c, 'Craque pour le plaisir.', tx, ty + (V ? 140 : 150), V ? 62 : 76, lt, 1.3, { fill: C.yellow, maxW: W * (V ? .92 : .52), stag: .02, grad: [C.yellow, C.orange], shadow: true });
+  banner(c, 'friandeasy.fr', tx, ty + (V ? 290 : 300), V ? 70 : 84, lt, 2.9, C.pink, '#fff', -.03);
   // pulsation du bouton
-  const pulse = lt > 2.8 ? Math.sin((lt - 2.8) * 4) * .5 + .5 : 0;
+  const pulse = lt > 3.3 ? Math.sin((lt - 3.3) * 4) * .5 + .5 : 0;
   if (pulse > 0) { c.save(); c.globalAlpha = .25 * pulse; c.strokeStyle = '#fff'; c.lineWidth = 8; c.font = `800 ${V ? 70 : 84}px Poppins`; const w = c.measureText('friandeasy.fr').width + (V ? 70 : 84) * 1.2, h = (V ? 70 : 84) * 1.7; c.translate(tx, ty + (V ? 290 : 300)); c.rotate(-.03); const e = 14 + pulse * 22; rr(c, -w / 2 - e, -h / 2 - e, w + e * 2, h + e * 2, h / 2 + e); c.stroke(); c.restore(); }
 }});
 
@@ -576,8 +576,8 @@ function frame(t) {
 }
 
 /* ---------- sous-titres incrustés (voix off) ---------- */
-const SUBS = [[.3, 1.25, 'Un petit creux ?'], [2.0, 4.0, 'Une envie de sucré, de frais, de croquant ?'], [4.6, 7.0, 'Friandeasy, vos distributeurs gourmands à Lyon.'],
-  [8.1, 10.7, 'Snacks, boissons, et l’essentiel quand on en a besoin.'], [13.4, 15.2, 'Friandeasy. Craque pour le plaisir.']];
+const SUBS = [[.3, 1.2, 'Un petit creux ?'], [2.0, 4.5, 'Une envie de sucré, de frais, de croquant ?'], [4.6, 8.5, 'Friandeasy, vos distributeurs gourmands à Lyon.'],
+  [8.7, 12.7, 'Snacks, boissons, et l’essentiel quand on en a besoin.'], [14.8, 19.3, 'Friandeasy. Craque pour le plaisir.']];
 function wrap(c, text, maxW) {
   const words = text.split(' '), lines = []; let cur = '';
   for (const w of words) { const test = cur ? cur + ' ' + w : w; if (c.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; } else cur = test; }
