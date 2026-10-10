@@ -1,37 +1,45 @@
-// Capture headless : rend scene.html image par image (Chromium + Playwright) et encode avec ffmpeg.
-// Usage : node render.js video <h|v> <sortie_sans_audio.mp4>
-//         node render.js still <h|v> <temps_s> <sortie.png>
-const path = require('path'), http = require('http'), fs = require('fs'), { spawn } = require('child_process');
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
-const ROOT = path.resolve(__dirname, '..');
+// Rendu de la vidéo de présentation (index.html) : capture image par image (Playwright/Chromium) + ffmpeg.
+// Usage : node render.js                    -> friandeasy.mp4, friandeasy.webm, friandeasy-poster.jpg
+//         node render.js still <t> <out.jpg> -> une image à l'instant t (contrôle)
+const path = require('path'), http = require('http'), fs = require('fs'), { spawnSync, spawn } = require('child_process');
+const { chromium } = require(process.env.PLAYWRIGHT || '/opt/node22/lib/node_modules/playwright');
+const ROOT = path.resolve(__dirname, '..'), OUT = __dirname, TMP = path.join(__dirname, 'build');
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.png': 'image/png' };
 const srv = http.createServer((q, r) => {
   const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0]));
   fs.readFile(f, (e, d) => { if (e) { r.statusCode = 404; return r.end(); } r.setHeader('Content-Type', MIME[path.extname(f)] || 'application/octet-stream'); r.end(d); });
 });
+const ff = args => { const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', ...args], { stdio: 'inherit' }); if (r.status) throw new Error('ffmpeg ' + r.status); };
+
 (async () => {
-  const [mode, fmt, a, b] = process.argv.slice(2);
+  const [mode, a, b] = process.argv.slice(2);
+  fs.mkdirSync(TMP, { recursive: true });
   await new Promise(r => srv.listen(0, '127.0.0.1', r));
-  const port = srv.address().port, V = fmt === 'v';
   const browser = await chromium.launch({ args: ['--font-render-hinting=none'] });
-  const page = await browser.newPage({ viewport: { width: V ? 1080 : 1920, height: V ? 1920 : 1080 }, deviceScaleFactor: 1 });
-  page.on('pageerror', e => console.error('PAGE ERROR', e.message));
-  await page.goto(`http://127.0.0.1:${port}/video/scene.html?fmt=${fmt}`);
+  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+  page.on('pageerror', e => console.error('ERREUR PAGE', e.message));
+  await page.goto(`http://127.0.0.1:${srv.address().port}/video/index.html`);
   await page.evaluate(() => window.ready);
-  if (mode === 'still') {
-    await page.evaluate(t => window.renderFrame(t), parseFloat(a));
-    await page.screenshot(b.endsWith('.png') ? { path: b, type: 'png' } : { path: b, type: 'jpeg', quality: 92 });
-  } else {
-    const FPS = 30, N = await page.evaluate(() => window.DURATION * 30);
-    const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
-      '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '10', '-pix_fmt', 'yuv420p', '-r', String(FPS), a], { stdio: ['pipe', 'inherit', 'inherit'] });
+  const shot = async (t, file) => { await page.evaluate(t => window.seek(t), t); return page.screenshot(file ? { path: file, type: 'jpeg', quality: 90 } : { type: 'jpeg', quality: 95 }); };
+
+  if (mode === 'still') { await shot(parseFloat(a), b); }
+  else {
+    const { DURATION, FPS } = await page.evaluate(() => ({ DURATION: window.DURATION, FPS: window.FPS }));
+    const N = Math.round(DURATION * FPS), raw = path.join(TMP, 'presentation_raw.mp4');
+    const enc = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
+      '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '8', '-pix_fmt', 'yuv420p', raw], { stdio: ['pipe', 'inherit', 'inherit'] });
     for (let i = 0; i < N; i++) {
-      await page.evaluate(t => window.renderFrame(t), i / FPS);
-      const buf = await page.screenshot({ type: 'jpeg', quality: 95 });
-      if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
-      if (i % 100 === 0) console.log('frame', i, '/', N);
+      const buf = await shot(i / FPS);
+      if (!enc.stdin.write(buf)) await new Promise(r => enc.stdin.once('drain', r));
+      if (i % 150 === 0) console.log('image', i, '/', N);
     }
-    ff.stdin.end(); await new Promise(r => ff.on('close', r));
+    enc.stdin.end(); await new Promise(r => enc.on('close', r));
+    // MP4 H.264 (compatibilité maximale) et WebM VP9, sans piste audio, < 5 Mo chacun
+    ff(['-i', raw, '-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-tune', 'animation', '-pix_fmt', 'yuv420p', '-an', '-movflags', '+faststart', path.join(OUT, 'friandeasy.mp4')]);
+    ff(['-i', raw, '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '30', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2', '-pix_fmt', 'yuv420p', '-an', path.join(OUT, 'friandeasy.webm')]);
+    await shot(5.5, path.join(OUT, 'friandeasy-poster.jpg'));
+    for (const f of ['friandeasy.mp4', 'friandeasy.webm', 'friandeasy-poster.jpg'])
+      console.log(f, (fs.statSync(path.join(OUT, f)).size / 1048576).toFixed(2), 'Mo');
   }
   await browser.close(); srv.close();
 })().catch(e => { console.error(e); process.exit(1); });
