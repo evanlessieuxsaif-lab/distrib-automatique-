@@ -373,7 +373,7 @@
     // Mobile portrait : version verticale 9:16
     const tall = window.matchMedia('(max-width: 640px) and (orientation: portrait)');
     function pickSource() {
-      const t = tall.matches, src = t ? v.dataset.srcTall : v.dataset.srcWide;
+      const t = tall.matches && !!v.dataset.srcTall, src = t ? v.dataset.srcTall : v.dataset.srcWide;   // pas de version verticale : on garde le 16:9
       box.classList.toggle('is-tall', t);
       if (v.getAttribute('src') !== src) { v.poster = t ? v.dataset.posterTall : v.dataset.posterWide; v.src = src; v.load(); }
     }
