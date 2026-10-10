@@ -1,4 +1,3 @@
-# À RETIRER AU LANCEMENT : bloque tous les robots tant que le site est en chantier
 User-agent: *
-Disallow: /
+Allow: /
 Sitemap: https://www.friandeasy.fr/sitemap.xml
