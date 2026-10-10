@@ -1,8 +1,8 @@
-"""Musique originale de la vidéo de présentation (25 s, boucle exacte : 10 mesures à 96 BPM).
+"""Musique originale de la vidéo de présentation (20 s, boucle exacte : 8 mesures à 96 BPM).
 Synthèse numpy, aucun sample externe. Usage : python3 music-presentation.py build/presentation-music.wav [dossier_voix]
 Avec un dossier de voix (p1..p7.mp3, ElevenLabs via Higgsfield), la voix off est mixée et la musique baisse sous la voix."""
 import sys, os, io, subprocess, numpy as np, soundfile as sf
-SR = 44100; BPM = 96; B = 60 / BPM; S = B / 4; DUR = 25.0
+SR = 44100; BPM = 96; B = 60 / BPM; S = B / 4; DUR = 20.0
 N = int(SR * DUR); rng = np.random.default_rng(3); out = np.zeros((N, 2))
 def tt(d): return np.arange(int(SR * d)) / SR
 def f(m): return 440 * 2 ** ((m - 69) / 12)
@@ -37,7 +37,7 @@ def chime(m):
 # Progression en Do majeur, lumineuse : C – Am – F – G (une mesure chacun)
 CH = [([60, 64, 67, 71], 36), ([57, 60, 64, 67], 33), ([53, 57, 60, 64], 29), ([55, 59, 62, 65], 31)]
 MEL = [(0, 76), (3, 79), (6, 77), (8, 76), (11, 74), (14, 72)]
-bars = int(round(DUR / (4 * B)))                        # = 10
+bars = int(round(DUR / (4 * B)))                        # = 8
 for b in range(bars):
     t0 = b * 4 * B; chord, root = CH[b % 4]; intro = b == 0
     for k in (0, 8): add(t0 + k * S, kick() * (.6 if intro else 1))
@@ -48,12 +48,12 @@ for b in range(bars):
     for k in (0, 6, 10): add(t0 + k * S, keys(chord, 1.2), .15)
     if b >= 2: 
         for k, m in MEL: add(t0 + k * S, pluck(m + (0 if b % 4 < 2 else -2)), -.2)
-# Habillage sonore calé sur les changements de scène (3, 8, 17, 22 s) + carillon sur le contact
-for tc in (3.0, 8.0, 17.0, 22.0): add(tc - .4, whoosh())
-for k, m in enumerate((84, 88, 91)): add(22.05 + k * .12, chime(m))
+# Habillage sonore calé sur les changements de scène (2,7 / 6,9 / 11,6 / 15,4 s) + carillon sur le contact
+for tc in (2.7, 6.9, 11.6, 15.4): add(tc - .4, whoosh())
+for k, m in enumerate((84, 88, 91)): add(15.45 + k * .12, chime(m))
 out = np.tanh(out * 1.2) * .85
 # Voix off : phrase n° i posée à l'instant VO[i] (calé sur les scènes de index.html)
-VO = [(.2, 1), (3.15, 2), (8.4, 3), (11.1, 4), (13.8, 5), (17.3, 6), (22.3, 7)]
+VO = [(.15, 1), (2.8, 2), (7.1, 3), (8.25, 4), (9.95, 5), (11.75, 6), (15.6, 7)]
 if len(sys.argv) > 2 and os.path.isdir(sys.argv[2]):
     voice = np.zeros(N)
     for t, i in VO:

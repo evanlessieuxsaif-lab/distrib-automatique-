@@ -34,7 +34,7 @@ const ff = args => { const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', 
       if (i % 150 === 0) console.log('image', i, '/', N);
     }
     enc.stdin.end(); await new Promise(r => enc.on('close', r));
-    // Musique originale (boucle de 25 s) + voix off, puis MP4 H.264 + AAC et WebM VP9 + Opus, < 5 Mo chacun
+    // Musique originale (boucle de 20 s) + voix off, puis MP4 H.264 + AAC et WebM VP9 + Opus, < 5 Mo chacun
     const music = path.join(TMP, 'presentation-music.wav');
     if (spawnSync('python3', [path.join(__dirname, 'music-presentation.py'), music, path.join(__dirname, 'voix-presentation')], { stdio: 'inherit' }).status) throw new Error('musique');
     ff(['-i', raw, '-i', music, '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-tune', 'animation', '-pix_fmt', 'yuv420p',

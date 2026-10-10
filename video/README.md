@@ -14,8 +14,8 @@ Sorties dans `../assets/video/` : `friandeasy-intro.mp4` (16:9), `friandeasy-int
 
 Pour changer un texte ou un timing : `SC` (scènes) et `SUBS` dans `scene.js`, `VO` dans `music.py`.
 
-## Vidéo de présentation (25 s, muette)
+## Vidéo de présentation (20 s, voix off + musique)
 
 - `index.html` : source (HTML/CSS + timeline JS déterministe, `window.seek(t)`). Aperçu : `index.html?play=1`.
-- `render.js` : `node render.js` → `friandeasy.mp4` (H.264), `friandeasy.webm` (VP9), `friandeasy-poster.jpg`, avec la musique de `music-presentation.py` (synthèse numpy, boucle de 25 s). `node render.js still <t> <out.jpg>` pour une image.
+- `render.js` : `node render.js` → `friandeasy.mp4` (H.264), `friandeasy.webm` (VP9), `friandeasy-poster.jpg`, avec la musique de `music-presentation.py` (synthèse numpy, boucle de 20 s). `node render.js still <t> <out.jpg>` pour une image.
 - `snippet.html` : balise `<video autoplay muted loop playsinline>` prête à coller.

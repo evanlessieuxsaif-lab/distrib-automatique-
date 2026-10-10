@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Friandeasy – vidéo de présentation (source)</title>
 <!--
-  Vidéo de présentation 25 s, 1920×1080, 30 i/s. Animations pilotées par une timeline JS déterministe :
+  Vidéo de présentation 20 s, 1920×1080, 30 i/s. Animations pilotées par une timeline JS déterministe :
   window.seek(t) place chaque élément à l'instant t (secondes). Rendu image par image : node render.js
   Aperçu dans le navigateur : ouvrir ce fichier avec ?play=1 (lecture en boucle).
   Identité du site : orange #FF7A3D, rose #FF4D6D (dégradé du logo), encre #2B2B33, fond crème #FFF8F0, Poppins.
@@ -64,7 +64,7 @@
   <div class="blob blob--o" id="blobO"></div>
   <div class="blob blob--p" id="blobP"></div>
 
-  <!-- 1. Accroche (0–3 s) -->
+  <!-- 1. Accroche (0–2,7 s) -->
   <section class="scene" id="s1">
     <div id="s1group">
       <h1 class="el" id="s1a">Un petit creux&nbsp;?</h1>
@@ -72,14 +72,14 @@
     </div>
   </section>
 
-  <!-- 2. Marque (3–8 s) -->
+  <!-- 2. Marque (2,7–6,9 s) -->
   <section class="scene" id="s2">
     <img class="el logo-h" id="s2logo" src="../assets/logo-horizontal.svg" alt="Friandeasy">
     <p class="el title title--m" id="s2a">Le distributeur</p>
     <p class="el title title--m grad" id="s2b">de votre résidence</p>
   </section>
 
-  <!-- 3. Catégories (8–17 s) -->
+  <!-- 3. Catégories (6,9–11,6 s) -->
   <section class="scene" id="s3">
     <p class="el title title--m" id="s3t">Dans votre distributeur</p>
     <div class="cats" id="cats">
@@ -107,7 +107,7 @@
     </div>
   </section>
 
-  <!-- 4. Résidences 24h/24 (17–22 s) -->
+  <!-- 4. Résidences 24h/24 (11,6–15,4 s) -->
   <section class="scene" id="s4">
     <div class="resid">
       <div class="resid__art el" id="s4art">
@@ -133,7 +133,7 @@
     </div>
   </section>
 
-  <!-- 5. Contact (22–25 s) -->
+  <!-- 5. Contact (15,4–20 s) -->
   <section class="scene" id="s5">
     <img class="el icon-logo" id="s5logo" src="../assets/favicon.svg" alt="">
     <p class="el title title--m" id="s5a">N'hésitez pas à nous contacter</p>
@@ -146,7 +146,7 @@
 
 <script>
 (() => {
-  const DURATION = 25, FPS = 30, TR = 0.3;               // transitions de 0,3 s
+  const DURATION = 20, FPS = 30, TR = 0.3;               // transitions de 0,3 s
   // Courbe cubic-bezier(.22, 1, .36, 1) (sortie douce), résolue numériquement
   function bezier(x1, y1, x2, y2) {
     const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx, cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
@@ -196,25 +196,25 @@
     $('blobP').style.transform = `translate(${-Math.sin(a) * 140}px, ${-Math.cos(a) * 60 + 60}px)`;
 
     // 1. Accroche : fondu + zoom, léger zoom continu du groupe
-    apply($('s1a'), t, 0, 2.7, { dy: 0, z0: 1.25, z1: 1.15 });
-    apply($('s1b'), t, 1.3, 2.7, { dy: 0, z0: 1.25, z1: 1.15 });
-    $('s1group').style.transform = `scale(${1 + .06 * clamp(t / 3)})`;
+    apply($('s1a'), t, 0, 2.4, { dy: 0, z0: 1.25, z1: 1.15 });
+    apply($('s1b'), t, 1.15, 2.4, { dy: 0, z0: 1.25, z1: 1.15 });
+    $('s1group').style.transform = `scale(${1 + .06 * clamp(t / 2.7)})`;
 
     // 2. Marque
-    apply($('s2logo'), t, 3.0, 7.7, { dy: 30, z0: .9 });
-    apply($('s2a'), t, 3.3, 7.7);
-    apply($('s2b'), t, 3.6, 7.7);
+    apply($('s2logo'), t, 2.7, 6.6, { dy: 30, z0: .9 });
+    apply($('s2a'), t, 2.95, 6.6);
+    apply($('s2b'), t, 3.2, 6.6);
 
     // 3. Catégories, une toutes les 3 s ; la catégorie courante est mise en avant
-    apply($('s3t'), t, 8.0, 16.7);
+    apply($('s3t'), t, 6.9, 11.3);
     // la rangée reste centrée sur les cartes déjà apparues
-    const k = easeOut(clamp((t - 11.0) / TR)) + easeOut(clamp((t - 13.7) / TR));
+    const k = easeOut(clamp((t - 8.2) / TR)) + easeOut(clamp((t - 9.9) / TR));
     $('cats').style.transform = `translateX(${(2 - k) * (500 + 48) / 2}px)`;
-    [['c1', 8.3], ['c2', 11.0], ['c3', 13.7]].forEach(([id, t0], i, arr) => {
-      const el = $(id), s = vis(t, t0, 16.7);
-      const next = arr[i + 1] ? arr[i + 1][1] : 16.7;
+    [['c1', 7.05], ['c2', 8.2], ['c3', 9.9]].forEach(([id, t0], i, arr) => {
+      const el = $(id), s = vis(t, t0, 11.3);
+      const next = arr[i + 1] ? arr[i + 1][1] : 11.3;
       const on = t >= t0 && t < next;
-      const focus = on ? easeOut(clamp((t - t0) / TR)) : (t >= next && t < 16.7 ? 1 - easeOut(clamp((t - next) / TR)) : 0);
+      const focus = on ? easeOut(clamp((t - t0) / TR)) : (t >= next && t < 11.3 ? 1 - easeOut(clamp((t - next) / TR)) : 0);
       el.classList.toggle('is-on', on);
       el.style.opacity = s.k === 'on' ? (.7 + .3 * focus) : s.v * (s.k === 'out' ? .7 : 1);
       const y = s.k === 'in' ? (1 - s.v) * 80 : s.k === 'out' ? -(1 - s.v) * 30 : 0;
@@ -222,25 +222,25 @@
     });
 
     // 4. Résidences 24h/24 : immeuble, fenêtres qui s'allument, pin qui tombe
-    apply($('s4art'), t, 17.0, 21.7, { dy: 60 });
-    apply($('s4a'), t, 17.3, 21.7);
-    apply($('s4b'), t, 17.5, 21.7);
-    apply($('s4c'), t, 18.2, 21.7, { z0: .7 });
-    const lit = clamp((t - 17.2) / 2.4) * WINS.length;
+    apply($('s4art'), t, 11.6, 15.1, { dy: 60 });
+    apply($('s4a'), t, 11.85, 15.1);
+    apply($('s4b'), t, 12.05, 15.1);
+    apply($('s4c'), t, 13.1, 15.1, { z0: .7 });
+    const lit = clamp((t - 11.8) / 2.2) * WINS.length;
     WINS.forEach((w, i) => w.setAttribute('fill', ORDER[i] < lit ? (ORDER[i] % 3 ? '#FFD9C7' : '#FF7A3D') : '#45455A'));
-    const pd = t - 17.6, pin = $('s4pin');
+    const pd = t - 12.0, pin = $('s4pin');
     if (pd < 0) { pin.style.opacity = 0; }
     else {
       const p = clamp(pd / .45), drop = p < 1 ? -260 * (1 - easeIn(p)) : 0, bounce = pd > .45 && pd < .9 ? -Math.sin((pd - .45) / .45 * Math.PI) * 26 : 0;
-      const fade = t >= 21.7 ? 1 - easeIn(clamp((t - 21.7) / TR)) : 1;
+      const fade = t >= 15.1 ? 1 - easeIn(clamp((t - 15.1) / TR)) : 1;
       pin.style.opacity = clamp(p * 3) * fade; pin.style.transform = `translateY(${drop + bounce}px)`;
     }
 
     // 5. Contact, puis fondu vers le fond neutre = première image (boucle propre)
-    apply($('s5logo'), t, 22.0, 24.7, { dy: 30, z0: .8 });
-    apply($('s5a'), t, 22.15, 24.7);
-    apply($('s5b'), t, 22.3, 24.7);
-    apply($('s5c'), t, 22.45, 24.7);
+    apply($('s5logo'), t, 15.4, 19.7, { dy: 30, z0: .8 });
+    apply($('s5a'), t, 15.55, 19.7);
+    apply($('s5b'), t, 15.7, 19.7);
+    apply($('s5c'), t, 15.85, 19.7);
   }
 
   window.DURATION = DURATION; window.FPS = FPS; window.seek = seek;
