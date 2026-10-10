@@ -17,5 +17,5 @@ Pour changer un texte ou un timing : `SC` (scènes) et `SUBS` dans `scene.js`, `
 ## Vidéo de présentation (25 s, muette)
 
 - `index.html` : source (HTML/CSS + timeline JS déterministe, `window.seek(t)`). Aperçu : `index.html?play=1`.
-- `render.js` : `node render.js` → `friandeasy.mp4` (H.264), `friandeasy.webm` (VP9), `friandeasy-poster.jpg`. `node render.js still <t> <out.jpg>` pour une image.
+- `render.js` : `node render.js` → `friandeasy.mp4` (H.264), `friandeasy.webm` (VP9), `friandeasy-poster.jpg`, avec la musique de `music-presentation.py` (synthèse numpy, boucle de 25 s). `node render.js still <t> <out.jpg>` pour une image.
 - `snippet.html` : balise `<video autoplay muted loop playsinline>` prête à coller.

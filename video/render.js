@@ -34,9 +34,13 @@ const ff = args => { const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', 
       if (i % 150 === 0) console.log('image', i, '/', N);
     }
     enc.stdin.end(); await new Promise(r => enc.on('close', r));
-    // MP4 H.264 (compatibilité maximale) et WebM VP9, sans piste audio, < 5 Mo chacun
-    ff(['-i', raw, '-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-tune', 'animation', '-pix_fmt', 'yuv420p', '-an', '-movflags', '+faststart', path.join(OUT, 'friandeasy.mp4')]);
-    ff(['-i', raw, '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '30', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2', '-pix_fmt', 'yuv420p', '-an', path.join(OUT, 'friandeasy.webm')]);
+    // Musique originale (boucle de 25 s), puis MP4 H.264 + AAC et WebM VP9 + Opus, < 5 Mo chacun
+    const music = path.join(TMP, 'presentation-music.wav');
+    if (spawnSync('python3', [path.join(__dirname, 'music-presentation.py'), music], { stdio: 'inherit' }).status) throw new Error('musique');
+    ff(['-i', raw, '-i', music, '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-tune', 'animation', '-pix_fmt', 'yuv420p',
+      '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', path.join(OUT, 'friandeasy.mp4')]);
+    ff(['-i', raw, '-i', music, '-map', '0:v', '-map', '1:a', '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '30', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2', '-pix_fmt', 'yuv420p',
+      '-c:a', 'libopus', '-b:a', '112k', '-shortest', path.join(OUT, 'friandeasy.webm')]);
     await shot(5.5, path.join(OUT, 'friandeasy-poster.jpg'));
     for (const f of ['friandeasy.mp4', 'friandeasy.webm', 'friandeasy-poster.jpg'])
       console.log(f, (fs.statSync(path.join(OUT, f)).size / 1048576).toFixed(2), 'Mo');
