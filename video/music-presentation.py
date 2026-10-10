@@ -1,6 +1,7 @@
 """Musique originale de la vidéo de présentation (25 s, boucle exacte : 10 mesures à 96 BPM).
-Synthèse numpy, aucun sample externe. Usage : python3 music-presentation.py build/presentation-music.wav"""
-import sys, numpy as np, soundfile as sf
+Synthèse numpy, aucun sample externe. Usage : python3 music-presentation.py build/presentation-music.wav [dossier_voix]
+Avec un dossier de voix (p1..p7.mp3, ElevenLabs via Higgsfield), la voix off est mixée et la musique baisse sous la voix."""
+import sys, os, io, subprocess, numpy as np, soundfile as sf
 SR = 44100; BPM = 96; B = 60 / BPM; S = B / 4; DUR = 25.0
 N = int(SR * DUR); rng = np.random.default_rng(3); out = np.zeros((N, 2))
 def tt(d): return np.arange(int(SR * d)) / SR
@@ -51,4 +52,17 @@ for b in range(bars):
 for tc in (3.0, 8.0, 17.0, 22.0): add(tc - .4, whoosh())
 for k, m in enumerate((84, 88, 91)): add(22.05 + k * .12, chime(m))
 out = np.tanh(out * 1.2) * .85
+# Voix off : phrase n° i posée à l'instant VO[i] (calé sur les scènes de index.html)
+VO = [(.2, 1), (3.15, 2), (8.4, 3), (11.1, 4), (13.8, 5), (17.3, 6), (22.3, 7)]
+if len(sys.argv) > 2 and os.path.isdir(sys.argv[2]):
+    voice = np.zeros(N)
+    for t, i in VO:
+        raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', os.path.join(sys.argv[2], f'p{i}.mp3'), '-f', 'wav', '-ac', '1', '-ar', str(SR), '-'], capture_output=True, check=True).stdout
+        a, _ = sf.read(io.BytesIO(raw)); act = a[np.abs(a) > .02 * np.abs(a).max()]
+        a = a * (.17 / np.sqrt(np.mean(act ** 2)))          # même volume pour chaque phrase
+        j = int(t * SR); voice[j:j + len(a)] += a[:N - j]
+    env = np.convolve(np.abs(voice), np.ones(int(.3 * SR)) / int(.3 * SR), 'same')
+    duck = np.clip(env * 8, 0, 1)[:, None]
+    out = out * (.62 - .34 * duck) + np.tanh(voice * 1.3)[:, None] * .82
+    out = np.tanh(out * 1.05) * .92
 sf.write(sys.argv[1], out, SR); print('ok', DUR, 's,', bars, 'mesures')
