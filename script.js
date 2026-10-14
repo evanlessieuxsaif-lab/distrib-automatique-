@@ -20,7 +20,6 @@
    * lat/lng : coordonnées GPS (clic droit sur openstreetmap.org > « Afficher l'adresse »)
    */
   const LOCATIONS = [
-    { name: 'Résidence étudiante', type: 'Résidence étudiante', address: 'Lyon 7e', lat: 45.7485, lng: 4.8420, status: 'actif', pay: ['CB', 'Sans contact', 'Espèces'] },
     { name: "Salle d'escalade", type: 'Salle d’escalade', address: 'Lyon 9e', lat: 45.7740, lng: 4.8060, status: 'actif', pay: ['CB', 'Sans contact'] },
     { name: 'Coworking', type: 'Coworking', address: 'Lyon 3e (Part-Dieu)', lat: 45.7605, lng: 4.8590, status: 'bientot', pay: ['CB', 'Sans contact'] },
     { name: 'Salle de sport', type: 'Salle de sport', address: 'Villeurbanne', lat: 45.7710, lng: 4.8900, status: 'bientot', pay: ['CB', 'Sans contact'] },
@@ -139,7 +138,12 @@
   }, { passive: true });
   onScroll();
 
-  /* ---------- 4. FILTRES PRODUITS ---------- */
+  /* ---------- 4. PROPOSER UN PRODUIT : préremplit le type de demande du formulaire ---------- */
+  $$('[data-preset-type]').forEach(a => a.addEventListener('click', () => {
+    const sel = $('#c-type'); if (sel) sel.value = a.dataset.presetType;
+  }));
+
+  /* ---------- 4 bis. FILTRES PRODUITS (si la grille de produits revient) ---------- */
   const chips = $$('.chip[data-filter]');
   const products = $$('.product');
   const empty = $('.products__empty');
@@ -157,7 +161,7 @@
       p.classList.remove('is-in');
       if (match) { void p.offsetWidth; p.classList.add('is-in'); shown++; }
     });
-    empty.hidden = shown > 0;
+    if (empty) empty.hidden = shown > 0;
   }));
 
   /* ---------- 5. EMPLACEMENTS + CARTE ---------- */
