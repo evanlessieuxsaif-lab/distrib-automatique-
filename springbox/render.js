@@ -1,4 +1,4 @@
-// Rendu Springbok : capture image par image (Playwright/Chromium, canvas) -> ffmpeg (H.264 + AAC).
+// Rendu Springbox : capture image par image (Playwright/Chromium, canvas) -> ffmpeg (H.264 + AAC).
 // node render.js cues <out.json>                 repères audio
 // node render.js video <h|v> <out.mp4> [audio]   vidéo 30 fps
 // node render.js still <h|v> <t> <out.png>       une image

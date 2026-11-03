@@ -1,5 +1,5 @@
 'use strict';
-/* Springbok – teaser 30 s, motion design 2D flat, 100 % code (Canvas 2D).
+/* Springbox – teaser 30 s, motion design 2D flat, 100 % code (Canvas 2D).
    scene.html?fmt=h -> 1920×1080   |   scene.html?fmt=v -> 1080×1920   |   &play=1 : aperçu animé
    window.seek(t) dessine l'image à l'instant t (s). window.CUES = repères des effets sonores. */
 
@@ -9,16 +9,16 @@ const T = {
   annonce: 'Annonce', objet: 'Appareil photo', prix: '45 €', lieu: 'Lyon 7e · à 2 km', acheter: 'Acheter',
   s2: ['…mais il arrive', 'dans une semaine ?'],
   livraison: 'Livraison', choisis: 'Choisis ton option', relais: 'Point relais', relaisDelai: '3 à 7 jours',
-  s3: ['Nouvelle option :', 'Springbok.'],
-  sb: 'Springbok', sbDelai: 'livré en moins de 2 h', sbPrix: '≈ 5 €, dès le panier', valider: 'Valider',
+  s3: ['Nouvelle option :', 'Springbox.'],
+  sb: 'Springbox', sbDelai: 'livré en moins de 2 h', sbPrix: '≈ 5 €, dès le panier', valider: 'Valider',
   vendeurTag: 'Côté vendeur', s4: ['Le vendeur', 'confirme.'],
-  heure: '14:12', jour: 'mardi 3 novembre', notifApp: 'Springbok',
+  heure: '14:12', jour: 'mardi 3 novembre', notifApp: 'Springbox',
   notif1: 'Colis à remettre', notif2: "aujourd'hui", confirmer: 'Je confirme', confirme: 'Confirmé',
   lyon: 'Lyon', vendeur: 'Vendeur', acheteur: 'Toi', saone: 'Saône', rhone: 'Rhône',
   photo: 'photo au retrait', code: 'code à la remise',
   s6: ['Livré.', 'Avant ce soir.'],
   mots: ['RAPIDE', 'ABORDABLE', 'FIABLE'], legendes: ['moins de 2 h', '≈ 5 €, prix affiché', 'suivi en direct'],
-  nom: 'Springbok', base: ["Ton achat d'occasion,", 'livré en moins de 2 h'], bientot: 'Bientôt à Lyon',
+  nom: 'Springbox', base: ["Ton achat d'occasion,", 'livré en moins de 2 h'], bientot: 'Bientôt à Lyon',
 };
 
 // ===================== PALETTE (stricte) =====================
@@ -84,7 +84,7 @@ function check(x, y, s, color, lw) { line([[x - s * .5, y], [x - s * .12, y + s 
 function withT(x, y, s, fn, rot = 0) { ctx.save(); ctx.translate(x, y); if (rot) ctx.rotate(rot); ctx.scale(s, s); fn(); ctx.restore(); }
 
 // ===================== ÉLÉMENTS GRAPHIQUES =====================
-// Logo : carton isométrique + cornes de springbok. s = demi-largeur (px), g = pousse des cornes 0..1, k = écrasement (rebond)
+// Logo : carton isométrique + cornes de springbox. s = demi-largeur (px), g = pousse des cornes 0..1, k = écrasement (rebond)
 function logo(cx, cy, s, g = 1, k = 0) {
   ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s); ctx.translate(0, 0.275);
   ctx.translate(0, 1.2); ctx.scale(1 + k * .45, 1 - k); ctx.translate(0, -1.2);
@@ -334,7 +334,7 @@ function screenDelivery(t) {
   ctx.restore();
   const k = E.out(pr(t, 5.6, 5.95));
   if (k > 0) line([[100, 292], [100 + 250 * k, 292]], P.dark, 6);
-  // option Springbok
+  // option Springbox
   const a = E.back(pr(t, 8.2, 8.75));
   if (a > 0) {
     const bounce = 1 - .05 * Math.sin(Math.PI * pr(t, 9.25, 9.45)) + .03 * Math.sin(Math.PI * pr(t, 9.45, 9.7));

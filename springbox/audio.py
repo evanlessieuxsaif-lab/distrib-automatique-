@@ -1,4 +1,4 @@
-"""Bande son Springbok : beat électro léger 116 BPM + effets sonores, 100 % synthétisés (numpy), libres de droits.
+"""Bande son Springbox : beat électro léger 116 BPM + effets sonores, 100 % synthétisés (numpy), libres de droits.
 Usage : python3 audio.py <cues.json> <sortie.wav>     (cues.json produit par `node render.js cues`)"""
 import sys, json, wave, numpy as np
 

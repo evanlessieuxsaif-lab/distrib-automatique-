@@ -1,4 +1,4 @@
-# Springbok – teaser 30 s
+# Springbox – teaser 30 s
 
 Motion design 2D flat, 100 % généré par le code (Canvas 2D + synthèse audio numpy). Aucune image externe : le logo est redessiné en vecteurs dans `scene.js` (`logo()`), `logo.png` sert de référence.
 
@@ -7,7 +7,7 @@ Motion design 2D flat, 100 % généré par le code (Canvas 2D + synthèse audio 
 | `scene.html` / `scene.js` | l'animation. `scene.html?fmt=h` (1920×1080) ou `?fmt=v` (1080×1920), `&play=1` pour l'aperçu animé |
 | `audio.py` | beat électro 116 BPM + bruitages (clic, notif, sonnette…) synthétisés, calés sur `window.CUES` |
 | `render.js` | capture image par image (Playwright) → ffmpeg H.264/AAC ; `check` = contrôle textes hors cadre / chevauchants |
-| `build.sh` | tout le pipeline → `springbok_teaser_16x9.mp4`, `springbok_teaser_9x16.mp4` |
+| `build.sh` | tout le pipeline → `springbox_teaser_16x9.mp4`, `springbox_teaser_9x16.mp4` |
 
 ```bash
 ./build.sh
@@ -20,4 +20,4 @@ Motion design 2D flat, 100 % généré par le code (Canvas 2D + synthèse audio 
 - Après modification, `node render.js check` signale tout texte coupé ou chevauchant.
 
 ## Storyboard
-0-4 annonce · 4-8 point relais barré · 8-11 option Springbok · 11-14 vendeur confirme · 14-20 trajet sur Lyon + chrono 0:00→1:47 · 20-24 livraison à la porte · 24-27 RAPIDE / ABORDABLE / FIABLE · 27-30 logo + baseline.
+0-4 annonce · 4-8 point relais barré · 8-11 option Springbox · 11-14 vendeur confirme · 14-20 trajet sur Lyon + chrono 0:00→1:47 · 20-24 livraison à la porte · 24-27 RAPIDE / ABORDABLE / FIABLE · 27-30 logo + baseline.
